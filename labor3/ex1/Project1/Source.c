@@ -12,17 +12,17 @@ int main()
 	{
 		printf("error");
 		return 0;
-	}
+	}						
 	printf("enter 1 to enter the array elements yourself\n");  //выбор пользователя
 	printf("enter 2 to randomly enter array elements\n");
 	int x;
-	scanf_s("%d", &x); 
-	switch(x)														
+	scanf_s("%d", &x);
+	switch (x)
 	{
 	case 1:
 		for (int i = 0; i < num; i++)							//ввод пользователем
 		{
-			printf("enter %d number of massive		", i+1);
+			printf("enter %d number of massive		", i + 1);
 			scanf_s("%4d", &massive[i]);
 		}
 		break;
@@ -30,13 +30,13 @@ int main()
 		for (int i = 0; i < num; i++)
 		{
 			massive[i] = rand() % 100;
-			printf("%d number of massive		%d\n", i + 1,massive[i]);
+			printf("%d number of massive		%d\n", i + 1, massive[i]);
 		}
 		break;
 	default:															//неправльный ввод
 		printf("incorrect enter\n");
 		return 0;
-	}
+	}		
 	for (int i = 0; i < num;i=i+2)									//поиск произведения
 	{
 		proiz = proiz * massive[i];
