@@ -3,16 +3,19 @@
 int main()
 {
 	int massive[100];
-	int num, proiz,sum;
+	int num, proiz, sum;
 	proiz = 1;
-	sum = 0;
-	printf("enter the number of elements\n");				//ввод количества элементов
-	scanf_s("%d", &num);
-	if (num < 1 || num>100)
+	sum = 0;				//ввод количества элементов
+	do
 	{
-		printf("error");
-		return 0;
-	}						
+		printf("enter the number of elements(<100)\n");
+		scanf_s("%d", &num);
+		if (num < 1 || num>100)
+		{
+			printf("error\n");
+			num = 0;
+		}
+	} while (num == 0);
 	printf("enter 1 to enter the array elements yourself\n");  //выбор пользователя
 	printf("enter 2 to randomly enter array elements\n");
 	int x;
