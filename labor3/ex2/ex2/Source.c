@@ -4,16 +4,12 @@ int main()
 {
 	int massive[100];
 	int n;
-	do
+	printf("enter the number of elements(<100)\n");
+	while (scanf_s("%d", &n) != 1 || n < 1 || n >100)		//проверка на ввод
 	{
-		printf("enter the number of elements(<100)\n");
-		scanf_s("%d", &n);
-		if (n < 1 || n>100)
-		{
-			printf("error\n");
-			n = 0;
-		}
-	} while (n == 0);
+		printf("error\n");
+		rewind(stdin);
+	}
 	printf("enter 1 to enter the array elements yourself\n");  //выбор пользователя
 	printf("enter 2 to randomly enter array elements\n");
 	int x;

@@ -5,17 +5,14 @@ int main()
 	int massive[100];
 	int num, proiz, sum;
 	proiz = 1;
-	sum = 0;				//ввод количества элементов
-	do
+	sum = 0;
+	//ввод количества элементов
+	printf("enter the number of elements(<100)\n");
+	while (scanf_s("%d", &num) != 1 || num < 1 || num >100)		//проверка на ввод
 	{
-		printf("enter the number of elements(<100)\n");
-		scanf_s("%d", &num);
-		if (num < 1 || num>100)
-		{
-			printf("error\n");
-			num = 0;
-		}
-	} while (num == 0);
+		printf("error\n");
+		rewind(stdin);
+	}
 	printf("enter 1 to enter the array elements yourself\n");  //выбор пользователя
 	printf("enter 2 to randomly enter array elements\n");
 	int x;
