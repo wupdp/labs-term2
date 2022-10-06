@@ -20,7 +20,11 @@ int main()
 		for (int i = 0; i < n; i++)							//ввод пользователем
 		{
 			printf("enter %d number of massive		", i + 1);
-			scanf_s("%4d", &massive[i]);
+			while (scanf_s("%4d", &massive[i]) != 1)		//проверка на ввод
+			{
+				printf("error\n");
+				rewind(stdin);
+			}
 		}
 		break;
 	case 2:															//случайный ввод

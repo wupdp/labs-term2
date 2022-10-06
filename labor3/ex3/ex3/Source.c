@@ -15,7 +15,11 @@ int main()
 		for (int i = 0; i < n; i++)							//ввод пользователем
 		{
 			printf("enter %d number of massive		", i + 1);
-			scanf_s("%4d", &massive1[i]);
+			while (scanf_s("%4d", &massive1[i]) != 1)		//проверка на ввод
+			{
+				printf("error\n");
+				rewind(stdin);
+			}
 		}
 		break;
 	case 2:															//случайный ввод
@@ -39,7 +43,11 @@ int main()
 		for (int i = 0; i < n; i++)							//ввод пользователем
 		{
 			printf("enter %d number of massive		", i + 1);
-			scanf_s("%4d", &massive2[i]);
+			while (scanf_s("%4d", &massive2[i]) != 1)		//проверка на ввод
+			{
+				printf("error\n");
+				rewind(stdin);
+			}
 		}
 		break;
 	case 2:															//случайный ввод
