@@ -5,7 +5,7 @@ int main()
 	int massive[100];
 	int n;
 	printf("enter the number of elements(<100)\n");
-	while (scanf_s("%d", &n) != 1 || n < 1 || n >100)		//проверка на ввод
+	while (scanf_s("%d", &n) != 1 || n < 1 || n >100 || getchar() != '\n')		//проверка на ввод
 	{
 		printf("error\n");
 		rewind(stdin);
@@ -20,7 +20,7 @@ int main()
 		for (int i = 0; i < n; i++)							//ввод пользователем
 		{
 			printf("enter %d number of massive		", i + 1);
-			while (scanf_s("%4d", &massive[i]) != 1)		//проверка на ввод
+			while (scanf_s("%4d", &massive[i]) != 1 || getchar() != '\n')		//проверка на ввод
 			{
 				printf("error\n");
 				rewind(stdin);
