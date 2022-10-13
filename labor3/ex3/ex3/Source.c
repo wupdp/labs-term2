@@ -8,7 +8,11 @@ int main()
 	printf("enter 1 to enter the array elements of 1 massive yourself\n");  //выбор пользователя
 	printf("enter 2 to randomly enter array elements\n");
 	int x;
-	scanf_s("%d", &x);
+	while (scanf_s("%d", &x) != 1 || x < 1 || x>2 || getchar() != '\n')
+	{
+		printf("incorrect enter\n");
+		rewind(stdin);
+	}
 	switch (x)
 	{
 	case 1:
@@ -29,14 +33,15 @@ int main()
 			printf("%d number of massive		%d\n", i + 1, massive1[i]);
 		}
 		break;
-	default:															//неправльный ввод
-		printf("incorrect enter\n");
-		return 0;
 	}
 	printf("enter 1 to enter the array elements of 2 massive yourself\n");  //выбор пользователя
 	printf("enter 2 to randomly enter array elements\n");
 	int y;
-	scanf_s("%d", &y);
+	while (scanf_s("%d", &y) != 1 || y < 1 || y>2 || getchar() != '\n')
+	{
+		printf("incorrect enter\n");
+		rewind(stdin);
+	}
 	switch (y)
 	{
 	case 1:
@@ -57,9 +62,6 @@ int main()
 			printf("%d number of massive		%d\n", i + 1, massive2[i]);
 		}
 		break;
-	default:															//неправльный ввод
-		printf("incorrect enter\n");
-		return 0;
 	}
 	int flag = 0;
 	int min=999;

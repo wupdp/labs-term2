@@ -16,31 +16,32 @@ int main()
 	printf("enter 1 to enter the array elements yourself\n");  //выбор пользователя
 	printf("enter 2 to randomly enter array elements\n");
 	int x;
-	scanf_s("%d", &x);
-	switch (x)
+	while (scanf_s("%d", &x) != 1 || x<1 || x>2 || getchar() != '\n')
 	{
-	case 1:
-		for (int i = 0; i < num; i++)							//ввод пользователем
-		{
-			printf("enter %d number of massive		", i + 1);
-			while (scanf_s("%4d", &massive[i]) != 1 || getchar() != '\n')		//проверка на ввод
-			{
-				printf("error\n");
-				rewind(stdin);
-			}
-		}
-		break;
-	case 2:															//случайный ввод
-		for (int i = 0; i < num; i++)
-		{
-			massive[i] = rand() % 100;
-			printf("%d number of massive		%d\n", i + 1, massive[i]);
-		}
-		break;
-	default:															//неправльный ввод
 		printf("incorrect enter\n");
-		return 0;
-	}		
+		rewind(stdin);
+	}
+		switch (x)
+		{
+		case 1:
+			for (int i = 0; i < num; i++)							//ввод пользователем
+			{
+				printf("enter %d number of massive		", i + 1);
+				while (scanf_s("%4d", &massive[i]) != 1 || getchar() != '\n')		//проверка на ввод
+				{
+					printf("error\n");
+					rewind(stdin);
+				}
+			}
+			break;
+		case 2:															//случайный ввод
+			for (int i = 0; i < num; i++)
+			{
+				massive[i] = rand() % 100;
+				printf("%d number of massive		%d\n", i + 1, massive[i]);
+			}
+			break;
+		}
 	for (int i = 0; i < num;i=i+2)									//поиск произведения
 	{
 		proiz = proiz * massive[i];
