@@ -86,8 +86,6 @@ for (int i = 0; i < line; i++)
 			}
             printf("\n");
 		    }
-
-
-
-
+			    getchar();
+return 0;
 }

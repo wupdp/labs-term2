@@ -89,5 +89,6 @@ for (int i=0,j=0;i<10;i++)						//столбцы
                 printf("element index: %d %d\n", column, line);
 				j=0;
 			}
+             getchar();
             return 0;
 }
