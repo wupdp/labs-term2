@@ -70,10 +70,13 @@ for (int i = 0; i < line; i++)
             if (flag==0)
             {
                 num=massive[i][0];
+				for(int i=0;i<line;i++)
+				{
                  for  (int j=0; j<column; j++)
                  {
                     massive[i][j]=massive[i][j]+num;
                  }
+				}
             }
              if (flag==0) break;
             flag=0;
