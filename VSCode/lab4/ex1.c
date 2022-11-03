@@ -28,7 +28,7 @@ int main()
             }
 			break;
 		case 2:															//случайный ввод
-		for (int i = 0; i < 10; i++)							//ввод пользователем
+		for (int i = 0; i < 10; i++)							
 			{
                 for  (int j=0; j<12; j++)
             {
@@ -37,7 +37,7 @@ int main()
 		    }
             break;
             }
-            for (int i = 0; i < 10; i++)							//ввод пользователем
+            for (int i = 0; i < 10; i++)						
 			{
                 for  (int j=0; j<12; j++)
             {
