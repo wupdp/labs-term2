@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 int InitX(int x, int min, int max)
 {
     while (scanf_s("%d", &x) != 1 || x < min || x >max||getchar()!='\n')		//проверка на ввод и ввод длины массива
@@ -11,64 +12,77 @@ int InitX(int x, int min, int max)
 	return x;
 }
 
-int* MassiveInput(int l)
+int* MassiveInit(int l)
 {
 	int* mas;
 	mas=(int*	)calloc(l,	sizeof(int));
+	return mas;
 }
 
-
-
-void massive2Init(int x, int l,int** mas)                   //ввод двумерного массива
+int** MatricsInit(int l)
 {
-    switch (x)
-		{
-		case 1:
-			for (int i = 0; i < l; i++)							//ввод пользователем
-			{
-                for  (int j=0; j<l; j++)
-            {
-				printf("enter %d %d number of massive		", i + 1, j+1);
-				while (scanf_s("%4d", &mas[i][j]) != 1 || getchar() != '\n')		//проверка на ввод
-				{
-					printf("error\n");
-					rewind(stdin);
-				}
-			}
-            }
-			break;
-		case 2:														
-		for (int i = 0; i < l; i++)							
-			{
-                for  (int j=0; j<l; j++)
-            {
-				mas[i][j] = rand() % 100-50;
-			}
-		    }
-            break;
-            }
+	int** mas;
+	mas=(int**	)calloc(l,	sizeof(int*));
+	for(int i=0; i<l; i++)
+    {
+        mas[i] = (int *)calloc(l, sizeof(int)); 
+    }
+    return mas;
 }
+
+
+
+int** massive2Init(int l)                   //ввод двумерного массива
+{
+   int** mas=calloc(l,sizeof(int*));
+   int length;
+   for(int i=0; i<l; i++)
+   {
+	printf("Input the length of %d row\n", i+1);
+	length=InitX(l,1,99);
+	mas[i]=MassiveInit(length);
+	printf("Input values\n");
+	for(int j=0;j<length-1;j++)
+	{
+		mas[i][j]=InitX(mas[i][j],1,99);
+	}
+	mas[i][length-1]=0;
+   }
+   return mas;
+}
+
 
 void massive2Show(int** mas, int l)                                 //вывод двумерного массива
 {
     for (int i = 0; i < l; i++)							
 		{
-        for  (int j=0; j<l; j++)
-        {
-		printf("%4d",mas[i][j]);
+			for (int j = 0; mas[i][j-1]!=0; j++)							
+		{
+		printf("%4d", mas[i][j]);
 		}
-            printf("\n");
+		printf("\n");
 		}
 }
 
 void RowInit( int l,int* mas)                       //ввод одномерного массива
 {
-			for (int i = 0; i < l; i++)							//ввод пользователем
-			{
-				printf("enter %d number of massive		", i + 1);
-				mas[i]=InitX(mas[i],-999,999);
-            }
+	for (int i = 0; i < l; i++)							//ввод пользователем
+	{
+		printf("enter %d number of row		", i + 1);
+		mas[i]=InitX(mas[i],-999,999);
+    }
 }
+
+void matricsInput(int** mas,int l)
+{
+	for(int i = 0; i < l; i++)
+	{
+		printf("Enter the %d row\n", i+1);
+		RowInit(l,mas[i]);
+	}
+}
+
+
 
 void massive1Show(int* mas, int l)                                 //вывод одномерного массива
 {
@@ -79,21 +93,14 @@ void massive1Show(int* mas, int l)                                 //вывод 
 		printf("\n");
 }
 
-
-void input_row(int *mas, int n)
+void matricsShow(int** mas,int l)
 {
-    //srand(time(NULL));
-    for (int i = 0; i < n; i++)
-        *(mas+i) = rand() % 51;
+	for(int i = 0; i < l; i++)
+	massive1Show(mas[i],l);
 }
 
 
-void print_row(int *m, int n)
-{
-    for (int i = 0; i < n; i++)
-        printf("%d  ", *(m + i)); // m[i]
-    printf("\n");
-}
+
 
 void DeleteNeg(int* mas, int length)
 {
@@ -108,4 +115,17 @@ void DeleteNeg(int* mas, int length)
             mas=(int*)realloc(mas,length);
         }
     }
+}
+
+
+
+int mincheck(int *mas)
+{
+	int min=999;
+	for(int i1=0;mas[i1]!=0;i1++)
+	{
+		if (mas[i1]<min)
+		min=mas[i1];
+	}
+	return min;
 }
