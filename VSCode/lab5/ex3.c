@@ -11,14 +11,8 @@ int main()
     matricsInput(mas,length);
     matricsShow(mas,length);
     printf("________________________\n");
-    for(int j = 0; j < length; j++)
-    {   
-        int temp=mas[0][j];
-        for(int i = 0; i < length-1; i++)
-        {   
-            mas[i][j]=mas[i+1][j];
-        }
-        mas[length-1][j]=temp;
-    }
+    ex3(mas,length);
      matricsShow(mas,length);
+     freemassive(mas,length);
+     return 0;
 }

@@ -6,7 +6,7 @@ int InitX(int x, int min, int max)
 {
     while (scanf_s("%d", &x) != 1 || x < min || x >max||getchar()!='\n')		//проверка на ввод и ввод длины массива
 	{
-		printf("error\n");
+		printf("Error\n");
 		rewind(stdin);
 	}
 	return x;
@@ -102,17 +102,17 @@ void matricsShow(int** mas,int l)
 
 
 
-void DeleteNeg(int* mas, int length)
+void DeleteNeg(int* mas, int* length)
 {
-	for(int i=0;i<length;i++)
+	for(int i=0;i<*length;i++)
     {
         if (mas[i]<0)
         {
-            for(int j=i;    j<length;   j++)
+            for(int j=i;    j<*length;   j++)
             mas[j]=mas[j+1];
-            length=length-1;
+            (*length)--;
             i--;
-            mas=(int*)realloc(mas,length);
+            mas=realloc(mas,*length);
         }
     }
 }
@@ -128,4 +128,62 @@ int mincheck(int *mas)
 		min=mas[i1];
 	}
 	return min;
+}
+
+
+void ex2(int** mas,int rows)
+{
+	for(int i =1;i<rows;i+=2)
+    {
+       int min=mincheck(mas[i]);
+       for(int j=0;mas[i][j]!=0;j++)
+       {
+        if (mas[i][j]==min)
+            {
+            int length=j;
+            for(int j1=j;   mas[i][j1]!=0;  j1++)
+            {
+                length++;
+            mas[i][j1]=mas[i][j1+1];
+            }
+            mas=realloc(mas,length);
+            j=-1;
+            }
+       }
+    }
+	for(int i=0;i<rows;i++)
+	{
+		if (mas[i][0]==0)
+		{
+			for(int j=i;j<rows;j++)
+			{
+				mas[j]=mas[j+1];
+			}
+			rows--;
+			mas=realloc(mas,rows);
+			i--;
+		}
+
+	}
+}
+
+
+void ex3(int** mas,int length)
+{
+	for(int j = 0; j < length; j++)
+    {   
+        int temp=mas[0][j];
+        for(int i = 0; i < length-1; i++)
+        {   
+            mas[i][j]=mas[i+1][j];
+        }
+        mas[length-1][j]=temp;
+    }
+}
+
+void freemassive(int** mas, int length)
+{
+	for(int i=0;i<length;i++)
+	free(mas[i]);
+	free(mas);
 }

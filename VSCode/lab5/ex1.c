@@ -4,23 +4,14 @@
 
 int main()
 { 
-        int length;
-        int* mas=NULL;
+    int length;
+    int* mas=NULL;
     printf("Enter the length\n");
     length=InitX(length,1,999);
     mas=MassiveInit(length);
     RowInit(length,mas);
     massive1Show(mas,length);
-        for(int i=0;i<length;i++)
-    {
-        if (mas[i]<0)
-        {
-            for(int j=i;    j<length;   j++)
-            mas[j]=mas[j+1];
-            length--;
-            i--;
-            mas=realloc(mas,length);
-        }
-    }
+    DeleteNeg(mas,&length);
     massive1Show(mas,length);
+    free(mas);
 }

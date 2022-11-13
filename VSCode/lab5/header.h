@@ -11,6 +11,10 @@ void matricsInput(int** mas,int l);
 void massive1Show(int* mas, int l);
 void matricsShow(int** mas,int l);
 int mincheck(int *mas);
+void DeleteNeg(int* mas, int* length);
+void ex2(int** mas,int rows);
+void ex3(int** mas,int length);
+void freemassive(int** mas, int length);
 int switchInit()
 {
 printf("enter 1 to enter the array elements yourself\n");  //выбор пользователя
