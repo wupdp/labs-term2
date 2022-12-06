@@ -2,7 +2,7 @@
 #include <time.h>
 
 int main() {
-    clock_t t1, t2, t3;
+    clock_t t1=0, t2=0, t3=0;
     printf("Enter the length:\n");
     int length;
     length = initX(1, 200000);
