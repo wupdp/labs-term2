@@ -21,15 +21,15 @@ int main() {
         massive1Show(mas, length);
     printf("\n\n Sorting......\n\n");
     //printf("%d      %d\n",minFind0(mas,length,0),minFind1(mas,length,minFind0(mas,length,0)+1));
-    t1 = (int) clock();
+    t1 = (long) clock();
     insertionSort(mas, length);
     //q_sort(mas, length);
-    t2 = (int) clock();
+    t2 = (long) clock();
     bubbleSort(mas2, length);
-    t3 = (int) clock();
-    //printf("%d      %d\n",minFind0(mas,length,0),minFind1(mas,length,minFind0(mas,length,0)+1));
-    printf("\n Insertion sort Time: %d milisec", t2 - t1);
-    printf("\n Bubble sort Time: %d milisec\n", t3 - t2);
+    t3 = (long) clock();
+    //printf("%l      %l\n",minFind0(mas,length,0),minFind1(mas,length,minFind0(mas,length,0)+1));
+    printf("\n Insertion sort Time: %li milisec", t2 - t1);
+    printf("\n Bubble sort Time: %li milisec\n", t3 - t2);
     printf("Show the sorted massive?\n\t1 - Yes\t 2 - No\n");
     x = initX(1, 2);
     if (x == 1)
