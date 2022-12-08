@@ -14,4 +14,3 @@ int main()
     massive2Show(mas, row, length);
     free_mas(mas,row);
 }
-
