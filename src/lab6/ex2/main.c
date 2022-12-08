@@ -8,10 +8,10 @@ int main()
 	row = initX(1, 1000);
 	int** mas = massive2Init(row+1, length);
 	ranInputMas(mas, row, length);
-	massive2Show(mas, row+1, length);
+	massive2Show(mas, row, length);
     printf("\n\n");
     q_sort(mas,mas[row],row,length);
-    massive2Show(mas, row+1, length);
+    massive2Show(mas, row, length);
     free_mas(mas,row);
 }
 

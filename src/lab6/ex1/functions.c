@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "header.h"
 
 int minFind0(int* mas, int l, int i)
 {

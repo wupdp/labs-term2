@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "functions.c"
 int minFind0(int *mas, int l, int i);
 
 int minFind1(int *mas, int l, int i);
