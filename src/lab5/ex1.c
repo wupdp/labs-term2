@@ -12,6 +12,7 @@ int main()
     RowInit(length,mas);
     massive1Show(mas,length);
     DeleteNeg(mas,&length);
+    printf("\n\n\n");
     massive1Show(mas,length);
     free(mas);
 }
