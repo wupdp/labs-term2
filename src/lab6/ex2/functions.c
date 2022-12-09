@@ -106,8 +106,7 @@ void colSwap(int **mas, int row, int j1, int j2) {
     }
 }
 
-void q_sort(int **MAS, int *mas, int row, int size) {
-    int i = 0;
+/*void qisort(int **MAS, int *mas, int row, int size) {
     int j = size - 1;
 
     int mid = mas[size / 2];
@@ -125,21 +124,46 @@ void q_sort(int **MAS, int *mas, int row, int size) {
             int tmp = mas[i];
             mas[i] = mas[j];
             mas[j] = tmp;
-            colSwap(MAS, row, i, j);
+            colSwap(MAS, row, j, i);
             i++;
             j--;
         }
     } while (i <= j);
     if (j > 0) {
 
-        q_sort(MAS, mas, row, j + 1);
+        qisort(MAS, mas, row, j + 1);
     }
     if (i < size) {
-        q_sort(MAS, &mas[i], row, size - i);
+        qisort(MAS, &mas[i], row, size - i);
     }
-}
+}*/
 
-void free_mas(int **mas, int r) {
+void freemas(int **mas, int r) {
     for (int i = 0; i < r; i++)
         free(mas[i]);
+}
+
+
+void qiSort(int **array, int n, int m,int N,int M)
+{
+  int  f = n, l = m, tmp, base = array[N][((l+f)/2)];
+  
+  while (f <= l)
+  {
+    for (; array[N][f] > base; f++);
+    for (; array[N][l] < base; l--);
+    if (f <= l)
+    {
+      for (int i = 0; i <=N; i++)
+      {
+        tmp = array[i][l];
+        array[i][l] = array[i][f];
+        array[i][f] = tmp;
+      }
+      f++;
+      l--;
+    }
+  }
+  if (n < l) qiSort(array, n, l,N,M);
+  if (f < m) qiSort(array, f, m,N,M);
 }

@@ -127,7 +127,7 @@ void bubbleSort(int* mas, int l)
 void insertionSort(int* mas, int l)
 {
 	int temp;
-	int min0 = minFind0(mas, l, 0), min1 = minFind1(mas, l, minFind0(mas, l, 0) + 1);
+	int min0 = minFind0(mas, l, 0)+1, min1 = minFind1(mas, l, minFind0(mas, l, 0) + 1)-1;
 	for (int i = min0 + 2; i <= min1; i++)
 		//for (int i = 3; i <l; i=i+2)
 	{
@@ -199,7 +199,7 @@ void qsortM(int** mas, int row,int l )
 }
 
 
-void q_sort(int* mas, int size) {
+void qisort(int* mas, int size) {
 	int i = 0;
 	int j = size - 1;
 
@@ -225,16 +225,16 @@ void q_sort(int* mas, int size) {
 	} while (i <= j);
 	if (j > 0) {
 
-		q_sort(mas, j + 1);
+		qisort(mas, j + 1);
 	}
 	if (i < size) {
-		q_sort(&mas[i], size - i);
+		qisort(&mas[i], size - i);
 	}
 }
 
 
 
-void mas_copy(int* mas1,int* mas2,int l)
+void mascopy(int* mas1,int* mas2,int l)
 {
     for (int i=0;i<l;i++)
     {

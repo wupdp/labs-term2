@@ -17,5 +17,7 @@ void badCase(int *mas, int l);
 void bubbleSort(int *mas, int l);
 void insertionSort(int *mas, int l);
 void qsortM(int **mas, int row, int l, int *mas2);
-void q_sort(int **MAS, int *mas, int row, int size);
+//void qisort(int **MAS, int *mas, int row, int size);
+void qiSort(int **array, int n, int m,int N,int M);
 void ranInputMas(int **mas, int r, int l);
+void freemas(int **mas, int r);

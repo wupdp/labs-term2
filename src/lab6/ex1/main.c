@@ -2,6 +2,8 @@
 #include <time.h>
 
 int main() {
+    int y=1;
+    do{
     clock_t t1=0, t2=0, t3=0;
     printf("Enter the length:\n");
     int length;
@@ -14,7 +16,7 @@ int main() {
         ranInputRow(mas, length);
     else
         badCase(mas, length);
-    mas_copy(mas2, mas, length);
+    mascopy(mas2, mas, length);
     printf("Show the massive?\n\t1 - Yes\t 2 - No\n");
     x = initX(1, 2);
     if (x == 1)
@@ -35,4 +37,7 @@ int main() {
     if (x == 1)
         massive1Show(mas, length);
     free(mas);
+     printf("Do you want to repit?\n\t1 - Yes\t 0 - No\n\n");
+    y=initX(0,1);
+    }while (y==1);
 }
