@@ -6,13 +6,13 @@ int main()
     int length;
     int** mas=NULL;
     printf("Enter the length\n");
-    length=InitX(length,1,999);
-    mas=MatricsInit(length);
-    matricsInput(mas,length);
-    matricsShow(mas,length);
+    length=init_x(length,1,999);
+    mas=matrics_init(length);
+    matrics_input(mas,length);
+    matrics_show(mas,length);
     printf("________________________\n");
     ex3(mas,length);
-     matricsShow(mas,length);
-     freemassive(mas,length);
+     matrics_show(mas,length);
+     free_massive(mas,length);
      return 0;
 }

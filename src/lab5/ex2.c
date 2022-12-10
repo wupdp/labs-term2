@@ -6,14 +6,14 @@ int main()
 {   
     int rows;
     printf("Enter the number of rows\n");
-    rows=InitX(rows,1,99);
+    rows=init_x(rows,1,99);
     int** mas;
-    mas=massive2Init(rows);
+    mas=massive2_init(rows);
     printf("________________________\n");
-    massive2Show(mas,rows);
+    massive2_show(mas,rows);
     printf("________________________\n");
     ex2(mas,rows);
-    massive2Show(mas,rows);
-    freemassive(mas,rows);
+    massive2_show(mas,rows);
+    free_massive(mas,rows);
     return 0;
 }

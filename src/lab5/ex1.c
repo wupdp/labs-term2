@@ -7,12 +7,12 @@ int main()
     int length;
     int* mas=NULL;
     printf("Enter the length\n");
-    length=InitX(length,1,999);
-    mas=MassiveInit(length);
-    RowInit(length,mas);
-    massive1Show(mas,length);
-    DeleteNeg(mas,&length);
+    length=init_x(length,1,999);
+    mas=massive_init(length);
+    row_init(length,mas);
+    massive1_show(mas,length);
+    delete_neg(mas,&length);
     printf("\n\n\n");
-    massive1Show(mas,length);
+    massive1_show(mas,length);
     free(mas);
 }

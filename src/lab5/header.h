@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "array.c"
-int InitX(int x, int min, int max);
-int* MassiveInit(int l);
-int** MatricsInit(int l);
-int** massive2Init(int l);
-void massive2Show(int** mas, int l);
-void RowInit( int l,int* mas);   
-void matricsInput(int** mas,int l);
-void massive1Show(int* mas, int l);
-void matricsShow(int** mas,int l);
-int mincheck(int *mas);
-void DeleteNeg(int* mas, int* length);
+int init_x(int x, int min, int max);
+int* massive_init(int l);
+int** matrics_init(int l);
+int** massive2_init(int l);
+void massive2_show(int** mas, int l);
+void row_init( int l,int* mas);   
+void matrics_input(int** mas,int l);
+void massive1_show(int* mas, int l);
+void matrics_show(int** mas,int l);
+int min_check(int *mas);
+void delete_neg(int* mas, int* length);
 void ex2(int** mas,int rows);
 void ex3(int** mas,int length);
-void freemassive(int** mas, int length);
-int switchInit();
+void free_massive(int** mas, int length);
+int switch_init();

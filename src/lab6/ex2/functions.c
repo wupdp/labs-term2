@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 
-int minFind0(int *mas, int l, int i) {
+int min_find0(int *mas, int l, int i) {
     int mini = mas[i];
     for (; i < l; i++) {
         if (mas[i] < mas[mini])
@@ -12,7 +12,7 @@ int minFind0(int *mas, int l, int i) {
 }
 
 
-int minFind1(int *mas, int l, int i) {
+int min_find1(int *mas, int l, int i) {
     int mini = mas[i];
     for (; i < l; i++) {
         if (mas[i] <= mas[mini])
@@ -28,7 +28,7 @@ void swap(int *a, int *b) {
 }
 
 
-int initX(int min, int max) {
+int init_x(int min, int max) {
     int x;
     while (scanf_s("%d", &x) != 1 || x < min || x > max || getchar() != '\n') {
         printf("Error\n");
@@ -37,34 +37,34 @@ int initX(int min, int max) {
     return x;
 }
 
-int *massiveInit(int l) {
+int *massive_init(int l) {
     int *mas;
     mas = (int *) calloc(l, sizeof(int));
     return mas;
 }
 
-int **massive2Init(int r, int l) {
+int **massive2_init(int r, int l) {
     int **mas = (int **) calloc(r, sizeof(int *));
     for (int i = 0; i < r; i++)
-        mas[i] = massiveInit(l);
+        mas[i] = massive_init(l);
     return mas;
 }
 
 
-void rowInput(int *mas, int l) {
+void row_input(int *mas, int l) {
     for (int i = 0; i < l; i++) {
-        mas[i] = initX(-999, 999);
+        mas[i] = init_x(-999, 999);
     }
 }
 
-void massive2Input(int l, int length, int **mas) {
+void massive2_input(int l, int length, int **mas) {
     for (int i = 0; i < l; i++) {
         printf("Input values of %d row\n", (i + 1));
-        rowInput(mas[i], length);
+        row_input(mas[i], length);
     }
 }
 
-void massive1Show(int *mas, int l) {
+void massive1_show(int *mas, int l) {
     for (int i = 0; i < l; i++) {
         printf("%4d", mas[i]);
     }
@@ -72,17 +72,17 @@ void massive1Show(int *mas, int l) {
 }
 
 
-void massive2Show(int **mas, int r, int l) {
+void massive2_show(int **mas, int r, int l) {
     for (int i = 0; i < r; i++)
-        massive1Show(mas[i], l);
+        massive1_show(mas[i], l);
 }
 
-void ranInputRow(int *mas, int l) {
+void ran_input_row(int *mas, int l) {
     for (int i = 0; i < l; i++)
         mas[i] = rand() % 200 - 100;
 }
 
-int colSum(int **mas, int row, int j) {
+int col_sum(int **mas, int row, int j) {
     int sum = 0;
     for (int i0 = 0; i0 < row; i0++) {
         sum += mas[i0][j];
@@ -90,15 +90,15 @@ int colSum(int **mas, int row, int j) {
     return sum;
 }
 
-void ranInputMas(int **mas, int r, int l) {
+void ran_input_mas(int **mas, int r, int l) {
     for (int i = 0; i < r; i++) {
-        ranInputRow(mas[i], l);
+        ran_input_row(mas[i], l);
     }
     for (int j = 0; j < l; j++)
-        mas[r][j] = colSum(mas, r, j);
+        mas[r][j] = col_sum(mas, r, j);
 }
 
-void colSwap(int **mas, int row, int j1, int j2) {
+void col_swap(int **mas, int row, int j1, int j2) {
     for (int i0 = 0; i0 < row; i0++) {
         int temp = mas[i0][j1];
         mas[i0][j1] = mas[i0][j2];
@@ -138,13 +138,13 @@ void colSwap(int **mas, int row, int j1, int j2) {
     }
 }*/
 
-void freemas(int **mas, int r) {
+void free_mas(int **mas, int r) {
     for (int i = 0; i < r; i++)
         free(mas[i]);
 }
 
 
-void qiSort(int **array, int n, int m,int N,int M)
+void qi_sort(int **array, int n, int m,int N,int M)
 {
   int  f = n, l = m, tmp, base = array[N][((l+f)/2)];
   
@@ -164,6 +164,6 @@ void qiSort(int **array, int n, int m,int N,int M)
       l--;
     }
   }
-  if (n < l) qiSort(array, n, l,N,M);
-  if (f < m) qiSort(array, f, m,N,M);
+  if (n < l) qi_sort(array, n, l,N,M);
+  if (f < m) qi_sort(array, f, m,N,M);
 }
