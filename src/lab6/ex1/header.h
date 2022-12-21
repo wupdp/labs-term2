@@ -1,4 +1,4 @@
-#include <stdio.h>
+\#include <stdio.h>
 #include <stdlib.h>
 #include "functions.c"
 int minFind0(int *mas, int l, int i);
