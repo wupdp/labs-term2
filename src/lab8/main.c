@@ -2,14 +2,12 @@
 #include <stdlib.h>
 #include "functions.c"
 int main(int argc, char **argv){
-    if (argc < 2)
-    {
-        printf("No arguments, restart");
-        return 0;
-    }
-   char **str_mas = (char **) malloc(argc * (sizeof(char *)));
-    for (int i = 0; i < argc; i++)
-        str_mas[i] = malloc(get_length(argv, i) * sizeof(char));
-        copyArray(argv, str_mas, argc);
-        show_string(str_mas[argc]);
+check_argc(argc);
+char** str_mas=NULL;
+str_mas_init(str_mas,argv,argc);
+copyArray(argv, str_mas, argc);
+delete_1string(argc,str_mas);
+qi_sort(str_mas,argc);
+printArray(str_mas,argc);
+void free_mas(str_mas, argc);
 }

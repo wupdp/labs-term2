@@ -65,6 +65,7 @@ string[0]-=32;
     {
         if(if_a_letter(string[i]) == 1  &&  string[i-1]==' '){
         string[i]=string[i]-32;
+        i--;
         }
         i++;
     }
@@ -72,14 +73,14 @@ string[0]-=32;
 
 void ex1()
 {
-char* string=calloc(1,1);
+char* string=calloc(200,1);
 int length=2;
 printf("\tEnter the string here:\n");
 string=get_string(string,&length);
-printf("%d\n",length);
 task1(string);
 printf("\tYour string ;) now:\n");
 show_string(string);
+free(string);
 printf("\n\n");
 }
 
@@ -93,8 +94,8 @@ char *string_cat(char *s1, char *s2, int start1,int start2,int n1)
 
 void ex2()
 {
-char* string1=calloc(1,1);
-char* string2=calloc(1,1);
+char* string1=calloc(200,1);
+char* string2=calloc(200,1);
 int length = 0, length1 = 0, length2 = 0;
 printf("\tEnter the first string here:\n");
 string1=get_string(string1,&length1);
@@ -104,11 +105,13 @@ printf("\tEnter N1 here:\n");
 int N1=init_x(1,length1);
 printf("\tEnter N2 here:\n");
 int N2=init_x(1,length2);
-char* string3=calloc(N1+N2,1);
+char* string3=calloc((N1+N2)*2,1);
 string3=string_cat(string3,string1,0,0,N1);
 string3=string_cat(string3,string2,N1,length2-N2,N2);
 printf("\tCheck your final string:\n");
 show_string(string3);
+free(string1);
+free(string2);
 }
 
 void start_ex(void (*ex)(),int x)
