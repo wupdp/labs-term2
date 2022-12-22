@@ -107,6 +107,7 @@ int N2=init_x(1,length2);
 char* string3=calloc(N1+N2,1);
 string3=string_cat(string3,string1,0,0,N1);
 string3=string_cat(string3,string2,N1,length2-N2,N2);
+printf("\tCheck your final string:\n");
 show_string(string3);
 }
 
