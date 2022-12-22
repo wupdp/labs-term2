@@ -7,8 +7,6 @@ void free_mas(int **mas, int r) {
         free(mas[i]);
 }
 
-
-
 void str_mas_init(char**str_mas,char**argv,int argc)
 {
     char **str_mas = (char **) malloc(argc * (sizeof(char *)));

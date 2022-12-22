@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "functions.c"
+#include "header.h"
 int main(int argc, char **argv){
 check_argc(argc);
 char** str_mas=NULL;
