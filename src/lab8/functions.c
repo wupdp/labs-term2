@@ -1,19 +1,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "header.h"
 
-void free_mas(int **mas, int r) {
+void free_mas(char **mas, int r) {
     for (int i = 0; i < r; i++)
         free(mas[i]);
 }
 
-void show_string(char *str) {
-    for (int i = 0; (str[i]) != '\0'; i++) {
-        printf("%c", (str[i]));
-    }
-    printf("\n");
-}
 
 int get_length(char **s, int num) {
     int cnt = 0, i = 0;
@@ -24,18 +17,46 @@ int get_length(char **s, int num) {
     return cnt + 1;
 }
 
-char *get_string(char *s, int *k) {
-    int c, i = 0;
-    while ((c = getchar()) != EOF && c != '\n') {
-        s[i++] = c;
-        (*k)++;
-    }
-    s[i] = '\0';
-    return s;
+
+void str_mas_init(char**str_mas,char**argv,int argc)
+{
+   str_mas = (char **) malloc(argc * (sizeof(char *)));
+    for (int i = 0; i < argc; i++)
+    str_mas[i] = (char*)malloc(get_length(argv, i) * sizeof(char));
+}
+
+void delete_1string(int argc,char** str_mas)
+{
+     for (int i = 0; i < argc - 1; i++)
+        *(str_mas + i) = *(str_mas + i + 1);
+     argc--;
 }
 
 
-void qi_sort(int **mas, int size) {
+int check_argc(int argc)
+{
+      if (argc < 2)
+    {
+        printf("No arguments, restart");
+        return 0;
+    }
+    return 1;
+}
+
+void copy_array(char **str1, char **str2, int str_num)
+{
+    for (int i = 0; i < str_num; i++)
+        for (int j = 0; j < get_length(str1, i); j++)
+            *(*(str2 + i) + j) = *(*(str1 + i) + j);
+}
+
+void print_array(char **arr, int str_num)
+{
+    for (int i = 0; i < str_num; i++)
+        printf("%s\n", arr[i]);
+}
+
+void qi_sort(char **mas, int size) {
     int i = 0;
     int j = size - 1;
 
@@ -51,7 +72,7 @@ void qi_sort(int **mas, int size) {
         }
 
         if (i <= j) {
-            int *tmp = mas[i];
+            char *tmp = mas[i];
             mas[i] = mas[j];
             mas[j] = tmp;
             i++;

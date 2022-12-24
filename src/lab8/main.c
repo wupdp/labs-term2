@@ -6,9 +6,9 @@ int main(int argc, char **argv) {
     check_argc(argc);
     char **str_mas = NULL;
     str_mas_init(str_mas, argv, argc);
-    copyArray(argv, str_mas, argc);
-    delete_1string(argc, str_mas);
-    qi_sort(str_mas, argc);
-    printArray(str_mas, argc);
-    void free_mas(str_mas, argc);
+    copy_array(argv, str_mas, argc);
+    //delete_1string(argc, str_mas);
+    //qi_sort(str_mas, argc);
+    print_array(str_mas, argc);
+    free_mas(str_mas, argc);
 }

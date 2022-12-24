@@ -1,5 +1,8 @@
-void free_mas(int **mas, int r);
-void show_string(char *str);
+#include "functions.c"
+void free_mas(char **mas, int r);
+void str_mas_init(char**str_mas,char**argv,int argc);
+void delete_1string(int argc,char** str_mas);
+int check_argc(int argc);
+void copy_array(char **str1, char **str2, int str_num);
 int get_length(char **s, int num);
-char *get_string(char *s, int *k);
-void qi_sort(int **mas, int size);
+void qi_sort(char **mas, int size);

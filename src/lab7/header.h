@@ -1,4 +1,4 @@
-
+#include "functions.c"
 int init_x(int min, int max);
 
 int if_letter(char s);
@@ -9,7 +9,7 @@ int if_a_letter(char s);
 
 int choose_ex();
 
-char *get_string(char *s, int *k);
+void get_string(char **s, int *k);
 
 void show_string(char *str);
 

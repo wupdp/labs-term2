@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "header.h"
 
 int init_x(int min, int max) {
     int x;
@@ -10,6 +9,7 @@ int init_x(int min, int max) {
     }
     return x;
 }
+
 
 int if_letter(char s) {
     if ((s >= 'a' && s <= 'z') || (s >= 'A' && s <= 'Z'))
@@ -37,13 +37,13 @@ int choose_ex() {
     return x;
 }
 
-char *get_string(char *s, int *k) {
+char* get_string(char **s, int *k) {
     int c, i = 0;
     while ((c = getchar()) != EOF && c != '\n') {
-        s[i++] = c;
+        *s[i++] = c;
         (*k)++;
     }
-    s[i] = '\0';
+    *s[i] = '\0';
     return s;
 }
 
@@ -71,7 +71,7 @@ void ex1() {
     char *string = calloc(200, 1);
     int length = 2;
     printf("\tEnter the string here:\n");
-    string = get_string(string, &length);
+     get_string(&string, &length);
     task1(string);
     printf("\tYour string ;) now:\n");
     show_string(string);
