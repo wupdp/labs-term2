@@ -9,7 +9,7 @@ int if_a_letter(char s);
 
 int choose_ex();
 
-void get_string(char **s, int *k);
+char* get_string(char **s, int *k);
 
 void show_string(char *str);
 
