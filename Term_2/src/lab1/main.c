@@ -15,6 +15,7 @@ void mas_struct_input(Temp_t** mas_struct, int i);
 //CMAKE
 //SONAR
 //HTML parsing
+//project structure
 
 int main()
 {
