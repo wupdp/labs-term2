@@ -5,13 +5,20 @@
 #ifndef LAB1_1_HEADER_H
 #define LAB1_1_HEADER_H
 
+enum Sex{
+    MAN,
+    WOMAN
+};
+
 typedef struct Temp_Struct
 {
     char* name;
     char* address;
     char* number;
     int salary;
+    enum Sex sex;
 }Temp_t;
+void insertion_sort(Temp_t *mas, int n);
 
 void mas_struct_init(Temp_t** mas_struct, int num);
 

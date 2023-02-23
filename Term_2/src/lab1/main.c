@@ -1,5 +1,4 @@
 #include "header.h"
-//enum
 //init sort
 //work menu
 //CMAKE
@@ -21,6 +20,7 @@ int main()
     Temp_t* mas_struct;
     mas_struct_init(&mas_struct, num);
     mas_struct_parsing(&mas_struct, f, num);
+    insertion_sort(mas_struct, num);
     mas_struct_output(mas_struct, num);
     fclose(f);
     getchar();
