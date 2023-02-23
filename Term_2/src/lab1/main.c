@@ -19,6 +19,13 @@ void mas_struct_input(Temp_t** mas_struct, int i);
 
 int main()
 {
+    FILE *f;
+    f = fopen("Struct_html.txt", "r");
+    if (f==NULL) 
+	{	
+		printf("���� �� ������... /n ��� ��������� ������ ������� ����� �������...");
+		return 0;
+	}
     int num = 0;
     num = init_x( 1, 10);
     Temp_t* mas_struct;
