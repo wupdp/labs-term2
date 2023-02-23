@@ -1,44 +1,28 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "functions.c"
-
-void mas_struct_init(Temp_t** mas_struct, int num);
-void mas_struct_output(Temp_t mas_struct);
-void mas_struct_input(Temp_t** mas_struct, int i);
-
-
-//enum 
-//russian lang add
+#include "header.h"
+//enum
 //init sort
-//work menu 
+//work menu
 //CMAKE
 //SONAR
-//HTML parsing
-//project structure
 
 int main()
 {
+    setlocale(LC_ALL, "RUS");
     FILE *f;
-    f = fopen("Struct_html.txt", "r");
-    if (f==NULL) 
-	{	
-		printf("пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ... /n пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ...");
-		return 0;
-	}
-    int num = 0;
-    num = init_x( 1, 10);
+    f = fopen("Struct.txt", "r");
+    if (f == NULL)
+    {
+            printf("ERROR0");
+            return 0;
+    }
+    int num;
+    printf("Введите кол-во структур\n");
+    num = init_x( 1, 15);
     Temp_t* mas_struct;
     mas_struct_init(&mas_struct, num);
-    for(int i = 0; i < num; i++)
-        mas_struct_input(&mas_struct, i);
-    for(int i = 0; i < num; i++)
-        mas_struct_output(mas_struct[i]);
-    mas_struct_add(&mas_struct, &num);
-    for(int i = 0; i < num; i++)
-        mas_struct_output(mas_struct[i]);
-    mas_struct_delete(&mas_struct, &num, 1);
-    for(int i = 0; i < num; i++)
-        mas_struct_output(mas_struct[i]);
-    return 0;
+    mas_struct_parsing(&mas_struct, f, num);
+    mas_struct_output(mas_struct, num);
+    fclose(f);
+    getchar();
+    return EXIT_SUCCESS;
 }
