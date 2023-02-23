@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <windows.h>
 #ifndef LAB1_1_HEADER_H
 #define LAB1_1_HEADER_H
 
 enum Sex{
-    MAN,
-    WOMAN
+    MAN = 1,
+    WOMAN,
+    ELSE
 };
 
 typedef struct Temp_Struct
@@ -18,6 +20,11 @@ typedef struct Temp_Struct
     int salary;
     enum Sex sex;
 }Temp_t;
+
+void delete_all_mas(Temp_t **mas, int *num);
+
+void mas_struct_output_i(Temp_t *mas_struct, int i);
+
 void insertion_sort(Temp_t *mas, int n);
 
 void mas_struct_init(Temp_t** mas_struct, int num);

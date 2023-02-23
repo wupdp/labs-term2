@@ -7,7 +7,7 @@
 //void *memcpy(void *dest, const void *src, size_t n)
 //Копирует n символов из src в dest.)
 
-int init_x(int min, int max) {
+int init_x (int min, int max) {
     int x;
     while (scanf_s("%d", &x) != 1 || x < min || x > max || getchar() != '\n') {
         printf("Ошибка, введите значение между %d и %d.\n", min, max);
@@ -17,34 +17,37 @@ int init_x(int min, int max) {
     return x;
 }
 
-void mas_struct_init(Temp_t **mas_struct, int num) {
+void mas_struct_init (Temp_t **mas_struct, int num) {
     (*mas_struct) = (Temp_t *) calloc(num, sizeof(Temp_t));
 }
 
-void mas_struct_output(Temp_t *mas_struct, int num) {
+void mas_struct_output_i (Temp_t *mas_struct, int i) {
     setlocale(LC_ALL, "RUS");
-    for (int i = 0; i < num; i++) {
-        printf("%d-я Структура\n", i + 1);
-        printf("Название:\t");
-        puts(mas_struct[i].name);
-        printf("Пол HR-менеджера:\t");
-        if (mas_struct[i].sex == MAN)
-            printf("муж.\n");
-        else if (mas_struct[i].sex == WOMAN)
-            printf("жен.\n");
-        else
-            printf("Не определился/ась/ось\n");
-        printf("Оклад:\t%d RUB\n", mas_struct[i].salary);
-        printf("Адрес:\t");
-        puts(mas_struct[i].address);
-        printf("Телефонный номер:\t");
-        puts(mas_struct[i].number);
-        printf("\n");
-    }
+    printf("%d-я Структура\n", i + 1);
+    printf("Название:\t");
+    puts(mas_struct[i].name);
+    printf("Пол HR-менеджера:\t");
+    if (mas_struct[i].sex == MAN)
+        printf("муж.\n");
+    else if (mas_struct[i].sex == WOMAN)
+        printf("жен.\n");
+    else if (mas_struct[i].sex == ELSE)
+        printf("Не определился/ась/ось\n");
+    printf("Оклад:\t%d RUB\n", mas_struct[i].salary);
+    printf("Адрес:\t");
+    puts(mas_struct[i].address);
+    printf("Телефонный номер:\t");
+    puts(mas_struct[i].number);
+    printf("\n");
 }
 
+void mas_struct_output (Temp_t *mas_struct, int num) {
+    setlocale(LC_ALL, "RUS");
+    for (int i = 0; i < num; i++)
+        mas_struct_output_i(mas_struct, i);
+}
 
-void mas_struct_parsing(Temp_t **mas_struct, FILE *f, int num) {
+void mas_struct_parsing (Temp_t **mas_struct, FILE *f, int num) {
     int i = 0, j = 0, k = 0;
     char *buffer;
     char *buffer2;
@@ -54,7 +57,6 @@ void mas_struct_parsing(Temp_t **mas_struct, FILE *f, int num) {
     while (!feof(f)) {
         if (fgets(buffer, 255, f) != NULL) {
             if (strstr(buffer, "company-info-name-org") != NULL) {
-                printf("SUCCESS\n");
                 buffer2 = strrchr(buffer, '\"') + 2;
                 end_str = strrchr(buffer, '<');
                 *end_str = '\0';
@@ -85,12 +87,11 @@ void mas_struct_parsing(Temp_t **mas_struct, FILE *f, int num) {
                 (*mas_struct)[k].number = (char *) calloc(strlen(buffer2), 1);
                 strcpy((*mas_struct)[k].number, buffer2 + 2);
                 k++;
-                printf("SUCCESS3\n");
+                printf("%d struct: Success\n", k);
                 if (k == num)
                     break;
             }
-        }
-        else {
+        } else {
             perror("ERROR_GETS");
         }
     }
@@ -100,38 +101,39 @@ void mas_struct_parsing(Temp_t **mas_struct, FILE *f, int num) {
     }
 }
 
-void mas_struct_input(Temp_t **mas_struct, int i) {
+void mas_struct_input (Temp_t **mas_struct, int i) {
+    setlocale(LC_ALL, "RUS");
     char *buffer = (char *) calloc(255, 1);
-    printf("Enter name:\t");
+    printf("Введите название:\t");
     if (gets(buffer) == NULL) {
         printf("Error");
         rewind(stdin);
     }
     (*mas_struct)[i].name = (char *) calloc(strlen(buffer), 1);
     strcpy((*mas_struct)[i].name, buffer);
-    printf("Enter adress:\t");
+    printf("Введите адрес:\t");
     if (gets(buffer) == NULL)
         printf("Error");
     (*mas_struct)[i].address = (char *) calloc(strlen(buffer), 1);
     strcpy((*mas_struct)[i].address, buffer);
-    printf("Enter index:\t");
+    printf("Введите номер телефона:\t");
     if (gets(buffer) == NULL)
         printf("Error");
     (*mas_struct)[i].number = (char *) calloc(strlen(buffer), 1);
     strcpy((*mas_struct)[i].number, buffer);
-    printf("Enter salary:\t");
+    printf("Введите оклад:\t");
     (*mas_struct)[i].salary = init_x(16242, 1000000);
-    printf("Enter sex:\t");
+    printf("Введите пол HR-менеджера:\t");
     (*mas_struct)[i].sex = init_x(1, 3);
 }
 
-void mas_struct_add(Temp_t **mas, int *num) {
+void mas_struct_add (Temp_t **mas, int *num) {
     (*num)++;
     (*mas) = (Temp_t *) realloc(*mas, sizeof(Temp_t) * (*num));
     mas_struct_input(mas, (*num) - 1);
 }
 
-void mas_struct_delete(Temp_t **mas, int *num, int i) {
+void mas_struct_delete (Temp_t **mas, int *num, int i) {
     (*num)--;
     free((*mas)[i].name);
     free((*mas)[i].address);
@@ -141,14 +143,26 @@ void mas_struct_delete(Temp_t **mas, int *num, int i) {
     (*mas) = (Temp_t *) realloc((*mas), (*num) * sizeof(Temp_t));
 }
 
-void swap(Temp_t *a, Temp_t *b) {
+void swap (Temp_t *a, Temp_t *b) {
     Temp_t temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void insertion_sort(Temp_t *mas, int n) {
+void insertion_sort (Temp_t *mas, int n) {
     for (int k = 1; k < n; k++)
-        for (int i = k; i > 0 && mas[i - 1].salary > mas[i].salary; i--)
-            swap(&mas[i], &mas[i - 1]);
+        for (int i = k; i > 0 && mas[i - 1].salary >= mas[i].salary; i--) {
+            if (mas[i - 1].salary > mas[i].salary)
+                swap(&mas[i], &mas[i - 1]);
+            else {
+                if (mas[i - 1].sex > mas[i].sex)
+                    swap(&mas[i], &mas[i - 1]);
+            }
+        }
+}
+
+void delete_all_mas (Temp_t **mas, int *num) {
+    for (int i = 0; i < *num; i++)
+        mas_struct_delete(mas, num, i);
+    free(*mas);
 }
