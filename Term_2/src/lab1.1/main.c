@@ -4,8 +4,7 @@
 //work menu
 //CMAKE
 //SONAR
-//HTML parsing
-//project structure
+//HTML parsing ++
 
 int main()
 {

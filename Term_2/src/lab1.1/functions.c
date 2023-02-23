@@ -5,6 +5,9 @@
 
 //size_t strxfrm(char *dest, const char *src, size_t n);  // Преобразует первые n символов строки src в текущую локаль и помещает их в строку dest.
 
+
+//char *strchr(const char *s, int c); - Ищет в строке s первое вхождение символа c, начиная с начала строки. В случае успеха возвращает указатель на найденный символ, иначе возвращает нуль.
+//char *strrchr(const char *s, int c); - Аналогично предыдущему, только поиск осуществляется с конца строки.
 int init_x(int min, int max) {
     int x;
     while (scanf_s("%d", &x) != 1 || x < min || x > max || getchar() != '\n') {
@@ -38,13 +41,19 @@ void mas_struct_output(Temp_t *mas_struct, int num)
 void mas_struct_parsing(Temp_t **mas_struct, FILE *f, int num) {
     int i = 0, j = 0, k = 0;
     char* buffer;
+    char* buffer2;
+    char* end_str;
     buffer = (char*)calloc(255, 1);
+    buffer2 = (char*)calloc(255, 1);
     while (!feof(f)) {
         if (fgets(buffer, 255, f) != NULL) {
             if (strstr(buffer, "company-info-name-org") != NULL) {
                 printf("SUCCESS\n");
-                (*mas_struct)[i].name = (char *) calloc(strlen(buffer), 1);
-                strcpy((*mas_struct)[i].name, buffer);
+                buffer2 = strrchr(buffer, '\"')+2;
+                end_str = strrchr(buffer, '<');
+                *end_str = '\0';
+                (*mas_struct)[i].name = (char *) calloc(strlen(buffer2), 1);
+                strcpy((*mas_struct)[i].name, buffer2);
                 i++;
             }
             if (strstr(buffer, "address class=") != NULL) {
