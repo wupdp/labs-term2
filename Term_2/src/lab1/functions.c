@@ -124,7 +124,7 @@ void mas_struct_input (Temp_t **mas_struct, int i) {
     printf("Введите оклад:\t");
     (*mas_struct)[i].salary = init_x(16242, 1000000);
     printf("Введите пол HR-менеджера:\t");
-    (*mas_struct)[i].sex = init_x(1, 3);
+    (*mas_struct)[i].sex = init_x(0, 2);
 }
 
 void mas_struct_add (Temp_t **mas, int *num) {

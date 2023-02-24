@@ -7,7 +7,7 @@
 #define LAB1_1_HEADER_H
 
 enum Sex{
-    MAN = 1,
+    MAN,
     WOMAN,
     ELSE
 };
