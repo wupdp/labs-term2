@@ -19,26 +19,26 @@ typedef struct Temp_Struct
     char* number;
     int salary;
     enum Sex sex;
-}Temp_t;
+}COMPANIES_STRUCT;
 
-void delete_all_mas(Temp_t **mas, int *num);
+void delete_all_mas(COMPANIES_STRUCT **mas, int *num);
 
-void mas_struct_output_i(Temp_t *mas_struct, int i);
+void mas_struct_output_i(COMPANIES_STRUCT *mas_struct, int i);
 
-void insertion_sort(Temp_t *mas, int n);
+void insertion_sort(COMPANIES_STRUCT *mas, int n);
 
-void mas_struct_init(Temp_t** mas_struct, int num);
+void mas_struct_init(COMPANIES_STRUCT** mas_struct, int num);
 
-void mas_struct_output(Temp_t *mas_struct, int num);
+void mas_struct_output(COMPANIES_STRUCT *mas_struct, int num);
 
-void mas_struct_input(Temp_t** mas_struct, int i);
+void mas_struct_input(COMPANIES_STRUCT** mas_struct, int i);
 
 int init_x(int min, int max);
 
-void mas_struct_add(Temp_t** mas, int* num);
+void mas_struct_add(COMPANIES_STRUCT** mas, int* num);
 
-void mas_struct_delete(Temp_t** mas, int* num, int i);
+void mas_struct_delete(COMPANIES_STRUCT** mas, int* num, int i);
 
-void mas_struct_parsing(Temp_t **mas_struct, FILE* f, int num);
+void mas_struct_parsing(COMPANIES_STRUCT **mas_struct, FILE* f, int num);
 
 #endif //LAB1_1_HEADER_H

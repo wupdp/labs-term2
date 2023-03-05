@@ -17,11 +17,11 @@ int init_x (int min, int max) {
     return x;
 }
 
-void mas_struct_init (Temp_t **mas_struct, int num) {
-    (*mas_struct) = (Temp_t *) calloc(num, sizeof(Temp_t));
+void mas_struct_init (COMPANIES_STRUCT **mas_struct, int num) {
+    (*mas_struct) = (COMPANIES_STRUCT *) calloc(num, sizeof(COMPANIES_STRUCT));
 }
 
-void mas_struct_output_i (Temp_t *mas_struct, int i) {
+void mas_struct_output_i (COMPANIES_STRUCT *mas_struct, int i) {
     setlocale(LC_ALL, "RUS");
     printf("%d-я Структура\n", i + 1);
     printf("Название:\t");
@@ -41,13 +41,13 @@ void mas_struct_output_i (Temp_t *mas_struct, int i) {
     printf("\n");
 }
 
-void mas_struct_output (Temp_t *mas_struct, int num) {
+void mas_struct_output (COMPANIES_STRUCT *mas_struct, int num) {
     setlocale(LC_ALL, "RUS");
     for (int i = 0; i < num; i++)
         mas_struct_output_i(mas_struct, i);
 }
 
-void mas_struct_parsing (Temp_t **mas_struct, FILE *f, int num) {
+void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
     int i = 0, j = 0, k = 0;
     char *buffer;
     char *buffer2;
@@ -101,7 +101,7 @@ void mas_struct_parsing (Temp_t **mas_struct, FILE *f, int num) {
     }
 }
 
-void mas_struct_input (Temp_t **mas_struct, int i) {
+void mas_struct_input (COMPANIES_STRUCT **mas_struct, int i) {
     setlocale(LC_ALL, "RUS");
     char *buffer = (char *) calloc(255, 1);
     printf("Введите название:\t");
@@ -127,29 +127,29 @@ void mas_struct_input (Temp_t **mas_struct, int i) {
     (*mas_struct)[i].sex = init_x(0, 2);
 }
 
-void mas_struct_add (Temp_t **mas, int *num) {
+void mas_struct_add (COMPANIES_STRUCT **mas, int *num) {
     (*num)++;
-    (*mas) = (Temp_t *) realloc(*mas, sizeof(Temp_t) * (*num));
+    (*mas) = (COMPANIES_STRUCT *) realloc(*mas, sizeof(COMPANIES_STRUCT) * (*num));
     mas_struct_input(mas, (*num) - 1);
 }
 
-void mas_struct_delete (Temp_t **mas, int *num, int i) {
+void mas_struct_delete (COMPANIES_STRUCT **mas, int *num, int i) {
     (*num)--;
     free((*mas)[i].name);
     free((*mas)[i].address);
     free((*mas)[i].number);
     for (; i < (*num); i++)
         (*mas)[i] = (*mas)[i + 1];
-    (*mas) = (Temp_t *) realloc((*mas), (*num) * sizeof(Temp_t));
+    (*mas) = (COMPANIES_STRUCT *) realloc((*mas), (*num) * sizeof(COMPANIES_STRUCT));
 }
 
-void swap (Temp_t *a, Temp_t *b) {
-    Temp_t temp = *a;
+void swap (COMPANIES_STRUCT *a, COMPANIES_STRUCT *b) {
+    COMPANIES_STRUCT temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void insertion_sort (Temp_t *mas, int n) {
+void insertion_sort (COMPANIES_STRUCT *mas, int n) {
     for (int k = 1; k < n; k++)
         for (int i = k; i > 0 && mas[i - 1].salary >= mas[i].salary; i--) {
             if (mas[i - 1].salary > mas[i].salary)
@@ -161,7 +161,7 @@ void insertion_sort (Temp_t *mas, int n) {
         }
 }
 
-void delete_all_mas (Temp_t **mas, int *num) {
+void delete_all_mas (COMPANIES_STRUCT **mas, int *num) {
     for (int i = 0; i < *num; i++)
         mas_struct_delete(mas, num, i);
     free(*mas);

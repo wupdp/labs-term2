@@ -6,7 +6,7 @@
 int main () {
     system("chcp 1251");
     setlocale(LC_ALL, "RUS");
-    Temp_t *mas_struct;
+    COMPANIES_STRUCT *mas_struct;
     FILE *f;
     int num;
     int menu_switch = 1;
