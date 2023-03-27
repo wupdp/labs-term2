@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-typedef int T;
+#define LIMIT 6000
 
 typedef struct Book_frequency_struct{
     char* word;
@@ -12,8 +12,6 @@ typedef struct Node_tag {
     char *word;
     struct Node_tag *next;
 } Node_word;
-
-int if_letter(char c);
 
 void push(Node_word **head, char *buffer);
 
@@ -28,3 +26,9 @@ void insertion_sort (Book_frequency *mas, int n);
 void insertion_sort_frequency (Book_frequency *mas, int n);
 
 void free_stack(const Node_word **head);
+
+void stack_completion(FILE* f, Node_word **head, int* num1);
+
+void mas_completion_from_stack(Node_word **head, int* num, Book_frequency **words);
+
+void separation(int* num, Book_frequency **words_lit, Book_frequency **words_big, Book_frequency **words);

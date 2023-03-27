@@ -1,5 +1,5 @@
 #include "header.h"
-#define LIMIT 6000
+
 int main() {
     FILE *f = NULL;
     Node_word *head = NULL;
@@ -11,58 +11,15 @@ int main() {
         perror("ERROR_0");
         return 0;
     }
-    char *str = (char *) calloc(600, 1);
-    while (!feof(f)) {
-        if (NULL != fgets(str, 255, f)) {
-            int i = 0;
-            while (str[i] != '\0') {
-                if ((if_space(str[i]) == 0 && if_space(str[i - 1]) == 1) || (i == 0 && if_space(str[i]) == 0)) {
-                    int count = 0;
-                    int i_start = i;
-                    char *buffer = (char *) calloc(255, 1);
-                    while (if_space(str[i]) == 0 && str[i]!='\n') {
-                        count++;
-                        i++;
-                    }
-                    strncpy(buffer, &str[i_start], count);
-                    buffer[count] = '\0';
-                    push(&head, buffer);
-                    num1++;
-                } else i++;
-            }
-        }
-    }
-    free(str);
-    char *buffer = calloc(1, 1);
-    while (head) {
-        buffer = pop(&head);
-        for (int i = 0; i < num + 1; i++) {
-            if (i == num) {
-                num++;
-                words = (Book_frequency *) realloc(words, num * sizeof(Book_frequency));
-                words[i].word = buffer;
-                words[i].frequency = 1;
-                break;
-            }
-            if (strcmp(buffer, words[i].word) == 0) {
-                words[i].frequency++;
-                break;
-            }
-        }
-    }
+    stack_completion(f, &head, &num1);              //заполнение стека текстом
+    mas_completion_from_stack(&head, &num, &words); //перенос стека в массив с подсчетом частоты
     free_stack(&head);
-    free(buffer);
     insertion_sort(words, num);         //сортировка основного массива по длине слов
     Book_frequency *words_lit = (Book_frequency *) calloc(LIMIT, sizeof(Book_frequency));
     Book_frequency *words_big = (Book_frequency *) calloc(num - LIMIT, sizeof(Book_frequency));
-    for (int i = 0; i < num; i++){      //заполнение 2х массивов по длине слов
-        if(i < LIMIT)
-            words_lit[i] = words[i];
-        else
-            words_big[i - LIMIT] = words[i];
-    }
+    separation(&num, &words_lit, &words_big, &words);       //разделение на 2 массива
     free(words);
-    insertion_sort_frequency(words_lit, LIMIT);
+    insertion_sort_frequency(words_lit, LIMIT);     //сортировка по частоте слов
     insertion_sort_frequency(words_big, num - LIMIT);
     printf("%d %d", num, num1);
     for (int i = 0; i < LIMIT; i++) {
