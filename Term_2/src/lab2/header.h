@@ -1,7 +1,9 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#define LIMIT 6000
+#define LIMIT 900
+#define LIMIT_ADD 2300
+#define LIMIT_VOCABULARY 300
 
 typedef struct Book_frequency_struct{
     char* word;
@@ -23,7 +25,9 @@ int if_space(char c);
 
 void insertion_sort (Book_frequency *mas, int n);
 
-void insertion_sort_frequency (Book_frequency *mas, int n);
+void insertion_sort_frequency_lit (Book_frequency *mas, int n);
+
+void insertion_sort_frequency_big (Book_frequency *mas, int n);
 
 void free_stack(const Node_word **head);
 
@@ -32,3 +36,7 @@ void stack_completion(FILE* f, Node_word **head, int* num1);
 void mas_completion_from_stack(Node_word **head, int* num, Book_frequency **words);
 
 void separation(int* num, Book_frequency **words_lit, Book_frequency **words_big, Book_frequency **words);
+
+void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Book_frequency *words_big);
+
+long long getFileSize(const char* file_name);

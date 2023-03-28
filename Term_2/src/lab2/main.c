@@ -19,13 +19,23 @@ int main() {
     Book_frequency *words_big = (Book_frequency *) calloc(num - LIMIT, sizeof(Book_frequency));
     separation(&num, &words_lit, &words_big, &words);       //разделение на 2 массива
     free(words);
-    insertion_sort_frequency(words_lit, LIMIT);     //сортировка по частоте слов
-    insertion_sort_frequency(words_big, num - LIMIT);
-    printf("%d %d", num, num1);
-    for (int i = 0; i < LIMIT; i++) {
-        printf("%s  %d ", words_lit[i].word, words_lit[i].frequency);
-    }
+    insertion_sort_frequency_lit(words_lit, LIMIT);     //сортировка по частоте слов
+    insertion_sort_frequency_big(words_big, num - LIMIT);
+    FILE *f_compressed = NULL;
+    f_compressed = fopen("HOBBIT_cmpr.txt", "w");
+    rewind(f);
+    file_compressed_completion(f, f_compressed, words_lit, words_big);
+    printf("%d %d\n", num, num1);
+    printf("Compression is complete\n");
+    long long memory1 = getFileSize("HOBBIT.txt");
+    long long memory2 = getFileSize("HOBBIT_cmpr.txt");
+    float percent = 100 - (float)memory2 / (float)memory1 * 100;
+    printf("Size of file is %lld bite\n", memory1);
+    printf("Size of compressed file is %lld bite\n", memory2);
+    printf("%f %%\n", percent);
+    //for (int i = 0; i < LIMIT_VOCABULARY; i++) {
+    //  printf("%s  %d ", words_big[i].word, words_big[i].frequency);
+    //}
     fclose(f);
-    getchar();
     return EXIT_SUCCESS;
 }

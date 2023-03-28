@@ -30,9 +30,9 @@ char *pop(Node_word **head) {
 }
 
 void free_stack(const Node_word **head) {
-    Node_word* temp;
+    Node_word *temp;
     while (*head) {
-       free((*head)->word);
+        free((*head)->word);
         *head = (*head)->next;
     }
 }
@@ -45,32 +45,37 @@ void printStack(const Node_word *head) {
     }
 }
 
-int if_space(char c){
-    if (c == 32)    return 1;
+int if_space(char c) {
+    if (c == 32) return 1;
     else
         return 0;
 };
 
-void swap (Book_frequency *a, Book_frequency *b) {
+void swap(Book_frequency *a, Book_frequency *b) {
     Book_frequency temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void insertion_sort (Book_frequency *mas, int n) {
+void insertion_sort(Book_frequency *mas, int n) {
     for (int k = 1; k < n; k++)
         for (int i = k; i > 0 && strlen(mas[i - 1].word) >= strlen(mas[i].word); i--)
-                swap(&mas[i], &mas[i - 1]);
+            swap(&mas[i], &mas[i - 1]);
 }
 
-void insertion_sort_frequency (Book_frequency *mas, int n) {
+void insertion_sort_frequency_lit(Book_frequency *mas, int n) {
+    for (int k = 1; k < n; k++)
+        for (int i = k; i > 0 && mas[i - 1].frequency >= mas[i].frequency; i--)
+            swap(&mas[i], &mas[i - 1]);
+}
+
+void insertion_sort_frequency_big(Book_frequency *mas, int n) {
     for (int k = 1; k < n; k++)
         for (int i = k; i > 0 && mas[i - 1].frequency <= mas[i].frequency; i--)
             swap(&mas[i], &mas[i - 1]);
 }
 
-
-void stack_completion(FILE* f, Node_word **head, int* num1){
+void stack_completion(FILE *f, Node_word **head, int *num1) {
     char *str = (char *) calloc(600, 1);
     while (!feof(f)) {
         if (NULL != fgets(str, 255, f)) {
@@ -80,7 +85,7 @@ void stack_completion(FILE* f, Node_word **head, int* num1){
                     int count = 0;
                     int i_start = i;
                     char *buffer = (char *) calloc(255, 1);
-                    while (if_space(str[i]) == 0 && str[i]!='\n') {
+                    while (if_space(str[i]) == 0 && str[i] != '\n') {
                         count++;
                         i++;
                     }
@@ -95,7 +100,7 @@ void stack_completion(FILE* f, Node_word **head, int* num1){
     free(str);
 }
 
-void mas_completion_from_stack(Node_word **head, int* num, Book_frequency **words){
+void mas_completion_from_stack(Node_word **head, int *num, Book_frequency **words) {
     char *buffer = calloc(255, 1);
     while (*head) {
         buffer = pop(&(*head));
@@ -116,12 +121,65 @@ void mas_completion_from_stack(Node_word **head, int* num, Book_frequency **word
     free(buffer);
 }
 
-void separation(int* num, Book_frequency **words_lit, Book_frequency **words_big, Book_frequency **words){
-    for (int i = 0; i < *num; i++){      //заполнение 2х массивов по длине слов
-        if(i < LIMIT)
+void separation(int *num, Book_frequency **words_lit, Book_frequency **words_big, Book_frequency **words) {
+    for (int i = 0; i < *num; i++) {      //заполнение 2х массивов по длине слов
+        if (i < LIMIT)
             (*words_lit)[i] = (*words)[i];
-        else
+        else if(i > LIMIT + LIMIT_ADD)
             (*words_big)[i - LIMIT] = (*words)[i];
     }
 
+}
+
+void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Book_frequency *words_big) {
+    char *str = (char *) calloc(600, 1);
+    while (!feof(f)) {
+        if (NULL != fgets(str, 255, f)) {
+            int i = 0;
+            while (str[i] != '\0') {
+                if ((if_space(str[i]) == 0 && if_space(str[i - 1]) == 1) || (i == 0 && if_space(str[i]) == 0)) {
+                    int count = 0;
+                    int i_start = i;
+                    char *buffer = (char *) calloc(255, 1);
+                    while (if_space(str[i]) == 0 && str[i] != '\0') {        //&& str[i] != '\n'
+                        count++;
+                        i++;
+                    }
+                    strncpy(buffer, &str[i_start], count);
+                    buffer[count] = '\0';
+                    for (int j = 0; j < LIMIT_VOCABULARY + 1; j++){
+                        if(j == LIMIT_VOCABULARY){
+                            fputs(buffer, f2);
+                            fputs(" ", f2);
+                            break;
+                        }
+                        if (strcmp(buffer, words_big[j].word) == 0) {
+                            fputs(words_lit[j].word, f2);
+                            fputs(" ", f2);
+                            break;
+                        } else if (strcmp(buffer, words_lit[j].word) == 0) {
+                            fputs(words_big[j].word, f2);
+                            fputs(" ", f2);
+                            break;
+                        }
+                    }
+                } else i++;
+            }
+        }
+    }
+    free(str);
+}
+
+long long getFileSize(const char* file_name){
+    long long file_size = 0;
+    FILE* fd = fopen(file_name, "rb");
+    if(fd == NULL){
+        file_size = -1;
+    }
+    else{
+        while(getc(fd) != EOF)
+            file_size++;
+        fclose(fd);
+    }
+    return file_size;
 }
