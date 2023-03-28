@@ -1,3 +1,0 @@
-C:/c/Term_2/src/lab2/cmake-build-debug/CMakeFiles/untitled3.dir
-C:/c/Term_2/src/lab2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/c/Term_2/src/lab2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
