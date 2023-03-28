@@ -27,15 +27,14 @@ int main() {
     file_compressed_completion(f, f_compressed, words_lit, words_big);
     printf("%d %d\n", num, num1);
     printf("Compression is complete\n");
-    long long memory1 = getFileSize("HOBBIT.txt");
-    long long memory2 = getFileSize("HOBBIT_cmpr.txt");
+    long long memory1 = get_file_size("HOBBIT.txt");
+    long long memory2 = get_file_size("HOBBIT_cmpr.txt");
     float percent = 100 - (float)memory2 / (float)memory1 * 100;
     printf("Size of file is %lld bite\n", memory1);
     printf("Size of compressed file is %lld bite\n", memory2);
     printf("%f %%\n", percent);
-    //for (int i = 0; i < LIMIT_VOCABULARY; i++) {
-    //  printf("%s  %d ", words_big[i].word, words_big[i].frequency);
-    //}
+    print_vocabulary(words_lit);
     fclose(f);
+    fclose(f_compressed);
     return EXIT_SUCCESS;
 }

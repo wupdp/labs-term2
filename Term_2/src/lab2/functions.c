@@ -29,7 +29,7 @@ char *pop(Node_word **head) {
     return buffer;
 }
 
-void free_stack(const Node_word **head) {
+void free_stack(Node_word **head) {
     Node_word *temp;
     while (*head) {
         free((*head)->word);
@@ -37,7 +37,7 @@ void free_stack(const Node_word **head) {
     }
 }
 
-void printStack(const Node_word *head) {
+void print_stack(const Node_word *head) {
     printf("stack >");
     while (head) {
         printf("%s ", head->word);
@@ -125,7 +125,7 @@ void separation(int *num, Book_frequency **words_lit, Book_frequency **words_big
     for (int i = 0; i < *num; i++) {      //заполнение 2х массивов по длине слов
         if (i < LIMIT)
             (*words_lit)[i] = (*words)[i];
-        else if(i > LIMIT + LIMIT_ADD)
+        else if (i > LIMIT + LIMIT_ADD)
             (*words_big)[i - LIMIT] = (*words)[i];
     }
 
@@ -147,8 +147,8 @@ void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Bo
                     }
                     strncpy(buffer, &str[i_start], count);
                     buffer[count] = '\0';
-                    for (int j = 0; j < LIMIT_VOCABULARY + 1; j++){
-                        if(j == LIMIT_VOCABULARY){
+                    for (int j = 0; j < LIMIT_VOCABULARY + 1; j++) {
+                        if (j == LIMIT_VOCABULARY) {
                             fputs(buffer, f2);
                             fputs(" ", f2);
                             break;
@@ -167,19 +167,31 @@ void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Bo
             }
         }
     }
+    fputs("\n$\n", f2);
+    for (int i = 0; i < LIMIT; i++) {
+        fputs(words_lit[i].word, f2);
+        fputs("    ", f2);
+        fputs(words_big[i].word, f2);
+        fputs("\n", f2);
+    }
     free(str);
 }
 
-long long getFileSize(const char* file_name){
+long long get_file_size(const char *file_name) {
     long long file_size = 0;
-    FILE* fd = fopen(file_name, "rb");
-    if(fd == NULL){
+    FILE *fd = fopen(file_name, "rb");
+    if (fd == NULL) {
         file_size = -1;
-    }
-    else{
-        while(getc(fd) != EOF)
+    } else {
+        while (getc(fd) != EOF)
             file_size++;
         fclose(fd);
     }
     return file_size;
+}
+
+void print_vocabulary(Book_frequency *words){
+    for (int i = 0; i < LIMIT_VOCABULARY; i++) {
+        printf("%s  %d ", words[i].word, words[i].frequency);
+    }
 }
