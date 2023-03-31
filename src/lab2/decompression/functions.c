@@ -71,11 +71,14 @@ long long get_file_size(const char *file_name) {
 void file_uncompressed_completion(FILE *f, FILE *f2, Vocabulary_mas *mas, int size) {
     char *str = (char *) calloc(600, 1);
     fseek(f, 0, SEEK_SET);
+    int str_flag = 1;
     while (!feof(f)) {
         if (NULL != fgets(str, 255, f)) {
             if (strcmp("$\n", str) == 0) break;
             int i = 0;
             int space_1 = 1;
+            if(str_flag == 0) fputs("\n", f2);
+            str_flag = 0;
             while (str[i] != '\0' && str[i] != '\n') {
                 if ((if_space(str[i]) == 0 && if_space(str[i - 1]) == 1) || (i == 0 && if_space(str[i]) == 0)) {
                     int count = 0;
@@ -87,29 +90,29 @@ void file_uncompressed_completion(FILE *f, FILE *f2, Vocabulary_mas *mas, int si
                     }
                     strncpy(buffer, &str[i_start], count);
                     buffer[count] = '\0';  //считано слово из f1
-                    for (int j =0; j < size + 1; j++) {
-                        if(j == size){
-                            if(space_1 == 0) fputs(" ", f2);
+                    for (int j = 0; j < size + 1; j++) {
+                        if (j == size) {
+                            if (space_1 == 0) fputs(" ", f2);
                             fputs(buffer, f2);
                             space_1 = 0;
                             break;
                         }
                         if (strcmp(buffer, mas[j].word_lit) == 0) {
                             buffer = mas[j].word_big;
-                            if(space_1 == 0) fputs(" ", f2);
+                            if (space_1 == 0) fputs(" ", f2);
                             fputs(buffer, f2);
                             space_1 = 0;
                             break;
                         } else if (strcmp(buffer, mas[j].word_big) == 0) {
                             buffer = mas[j].word_lit;
-                            if(space_1 == 0) fputs(" ", f2);
+                            if (space_1 == 0) fputs(" ", f2);
                             fputs(buffer, f2);
                             space_1 = 0;
                             break;
                         }
                     }
                 } else i++;
-            } fputs("\n", f2);
+            }
         }
     }
     free(str);

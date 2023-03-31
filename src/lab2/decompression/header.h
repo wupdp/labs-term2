@@ -14,5 +14,3 @@ void mas_from_vocabulary(FILE *f, Vocabulary_mas **mas, int *num);
 long long get_file_size(const char* file_name);
 
 void file_uncompressed_completion(FILE *f, FILE *f2, Vocabulary_mas *mas, int size);
-
-int get_vocabulary_size(FILE *f);

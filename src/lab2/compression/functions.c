@@ -167,7 +167,7 @@ void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Bo
             } fputs("\n", f2);
         }
     }
-    fputs("\n$\n", f2);
+    fputs("$\n", f2);
     for (int i = 0; i < LIMIT_VOCABULARY; i++) {
         fputs(words_lit[i].word, f2);
         fputs("    ", f2);
