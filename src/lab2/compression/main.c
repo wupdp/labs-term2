@@ -18,7 +18,7 @@ int main() {
     Book_frequency *words_lit = (Book_frequency *) calloc(LIMIT, sizeof(Book_frequency));
     Book_frequency *words_big = (Book_frequency *) calloc(num - LIMIT, sizeof(Book_frequency));
     separation(&num, &words_lit, &words_big, &words);       //разделение на 2 массива
-    //free(words);
+    free(words);
     insertion_sort_frequency_lit(words_lit, LIMIT);     //сортировка по частоте слов
     insertion_sort_frequency_big(words_big, num - LIMIT);
     FILE *f_compressed = NULL;
