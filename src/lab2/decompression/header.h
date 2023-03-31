@@ -1,9 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#define LIMIT 440
-#define LIMIT_ADD 3000
-#define LIMIT_VOCABULARY 400
 
 typedef struct vocabulary_struct{
     char* word_lit;

@@ -1,8 +1,5 @@
 #include "header.h"
 
-#define STACK_OVERFLOW  (-100)
-#define STACK_UNDERFLOW (-101)
-
 //char *strncpy(char *dest, const char *src, size_t n)
 //Копирует до n символов из строки, на которую указывает src, в dest.
 
@@ -11,24 +8,6 @@ int if_space(char c) {
     else
         return 0;
 };
-
-int get_vocabulary_size(FILE *f) {
-    char *str = calloc(255, 1);
-    int num = 0;
-    while (!feof(f)) {
-        if (NULL != fgets(str, 255, f)) {
-            if (strcmp(str, "$\n") == 0) {
-                while (!feof(f)) {
-                    if (NULL != fgets(str, 255, f)) {
-                        if (strcmp(str, "\n") == 0) continue;
-                        num++;
-                    }
-                }
-            }
-        }
-    }
-    return num;
-}
 
 void mas_from_vocabulary(FILE *f, Vocabulary_mas **mas, int *num) {
     rewind(f);
@@ -96,6 +75,7 @@ void file_uncompressed_completion(FILE *f, FILE *f2, Vocabulary_mas *mas, int si
         if (NULL != fgets(str, 255, f)) {
             if (strcmp("$\n", str) == 0) break;
             int i = 0;
+            int space_1 = 1;
             while (str[i] != '\0' && str[i] != '\n') {
                 if ((if_space(str[i]) == 0 && if_space(str[i - 1]) == 1) || (i == 0 && if_space(str[i]) == 0)) {
                     int count = 0;
@@ -109,19 +89,22 @@ void file_uncompressed_completion(FILE *f, FILE *f2, Vocabulary_mas *mas, int si
                     buffer[count] = '\0';  //считано слово из f1
                     for (int j =0; j < size + 1; j++) {
                         if(j == size){
+                            if(space_1 == 0) fputs(" ", f2);
                             fputs(buffer, f2);
-                            fputs(" ", f2);
+                            space_1 = 0;
                             break;
                         }
                         if (strcmp(buffer, mas[j].word_lit) == 0) {
                             buffer = mas[j].word_big;
+                            if(space_1 == 0) fputs(" ", f2);
                             fputs(buffer, f2);
-                            fputs(" ", f2);
+                            space_1 = 0;
                             break;
                         } else if (strcmp(buffer, mas[j].word_big) == 0) {
                             buffer = mas[j].word_lit;
+                            if(space_1 == 0) fputs(" ", f2);
                             fputs(buffer, f2);
-                            fputs(" ", f2);
+                            space_1 = 0;
                             break;
                         }
                     }
