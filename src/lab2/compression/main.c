@@ -18,11 +18,15 @@ int main() {
     Book_frequency *words_lit = (Book_frequency *) calloc(LIMIT, sizeof(Book_frequency));
     Book_frequency *words_big = (Book_frequency *) calloc(num - LIMIT, sizeof(Book_frequency));
     separation(&num, &words_lit, &words_big, &words);       //разделение на 2 массива
-    free(words);
+    //free(words);
     insertion_sort_frequency_lit(words_lit, LIMIT);     //сортировка по частоте слов
     insertion_sort_frequency_big(words_big, num - LIMIT);
     FILE *f_compressed = NULL;
     f_compressed = fopen("HOBBIT_cmpr.txt", "w");
+    if (f_compressed == NULL) {
+        perror("ERROR_0");
+        return 0;
+    }
     rewind(f);
     file_compressed_completion(f, f_compressed, words_lit, words_big);
     printf("%d %d\n", num, num1);
@@ -33,7 +37,7 @@ int main() {
     printf("Size of file is %lld bite\n", memory1);
     printf("Size of compressed file is %lld bite\n", memory2);
     printf("%f %%\n", percent);
-    //print_vocabulary(words_lit);
+    //print_vocabulary(words_big);
     fclose(f);
     fclose(f_compressed);
     return EXIT_SUCCESS;

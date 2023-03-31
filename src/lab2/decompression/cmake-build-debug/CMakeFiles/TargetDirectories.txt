@@ -1,0 +1,3 @@
+C:/c/src/lab2/decompression/cmake-build-debug/CMakeFiles/untitled.dir
+C:/c/src/lab2/decompression/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/c/src/lab2/decompression/cmake-build-debug/CMakeFiles/rebuild_cache.dir

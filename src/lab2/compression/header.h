@@ -1,9 +1,9 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#define LIMIT 440
-#define LIMIT_ADD 3000
-#define LIMIT_VOCABULARY 400
+#define LIMIT 500
+#define LIMIT_ADD 1100
+#define LIMIT_VOCABULARY 300
 
 typedef struct Book_frequency_struct{
     char* word;

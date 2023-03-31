@@ -84,7 +84,7 @@ void stack_completion(FILE *f, Node_word **head, int *num1) {
                 if ((if_space(str[i]) == 0 && if_space(str[i - 1]) == 1) || (i == 0 && if_space(str[i]) == 0)) {
                     int count = 0;
                     int i_start = i;
-                    char *buffer = (char *) calloc(255, 1);
+                    char *buffer = (char *) calloc(50, 1);
                     while (if_space(str[i]) == 0 && str[i] != '\n') {
                         count++;
                         i++;
@@ -132,7 +132,7 @@ void separation(int *num, Book_frequency **words_lit, Book_frequency **words_big
 }
 
 void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Book_frequency *words_big) {
-    char *str = (char *) calloc(600, 1);
+    char *str = (char *) calloc(255, 1);
     while (!feof(f)) {
         if (NULL != fgets(str, 255, f)) {
             int i = 0;
@@ -141,7 +141,7 @@ void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Bo
                     int count = 0;
                     int i_start = i;
                     char *buffer = (char *) calloc(255, 1);
-                    while (if_space(str[i]) == 0 && str[i] != '\0') {        //&& str[i] != '\n'
+                    while (if_space(str[i]) == 0 && str[i] != '\0' && str[i] != '\n') {        //&& str[i] != '\n'
                         count++;
                         i++;
                     }
@@ -164,11 +164,11 @@ void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Bo
                         }
                     }
                 } else i++;
-            }
+            } fputs("\n", f2);
         }
     }
     fputs("\n$\n", f2);
-    for (int i = 0; i < LIMIT; i++) {
+    for (int i = 0; i < LIMIT_VOCABULARY; i++) {
         fputs(words_lit[i].word, f2);
         fputs("    ", f2);
         fputs(words_big[i].word, f2);
@@ -183,9 +183,8 @@ long long get_file_size(const char *file_name) {
     if (fd == NULL) {
         file_size = -1;
     } else {
-        while (getc(fd) != EOF)
-            file_size++;
-        fclose(fd);
+        fseek(fd, 0, SEEK_END);
+        file_size = ftell(fd);
     }
     return file_size;
 }
