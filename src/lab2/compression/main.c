@@ -38,6 +38,8 @@ int main() {
     printf("Size of compressed file is %lld bite\n", memory2);
     printf("%f %%\n", percent);
     //print_vocabulary(words_big);
+    free(words_lit);
+    free(words_big);
     fclose(f);
     fclose(f_compressed);
     return EXIT_SUCCESS;

@@ -77,7 +77,7 @@ void file_uncompressed_completion(FILE *f, FILE *f2, Vocabulary_mas *mas, int si
             if (strcmp("$\n", str) == 0) break;
             int i = 0;
             int space_1 = 1;
-            if(str_flag == 0) fputs("\n", f2);
+            if (str_flag == 0) fputs("\n", f2);
             str_flag = 0;
             while (str[i] != '\0' && str[i] != '\n') {
                 if ((if_space(str[i]) == 0 && if_space(str[i - 1]) == 1) || (i == 0 && if_space(str[i]) == 0)) {
