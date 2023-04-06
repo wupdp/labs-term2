@@ -194,3 +194,10 @@ void print_vocabulary(Book_frequency *words){
         printf("%s  %d ", words[i].word, words[i].frequency);
     }
 }
+
+void free_words(Book_frequency *words, int size){
+    for (int i = 0; i < size; ++i) {
+        free(words[i].word);
+        words[i].word = NULL;
+    }
+}

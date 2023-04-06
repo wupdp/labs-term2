@@ -42,3 +42,5 @@ void file_compressed_completion(FILE *f, FILE *f2, Book_frequency *words_lit, Bo
 long long get_file_size(const char* file_name);
 
 void print_vocabulary(Book_frequency *words);
+
+void free_words(Book_frequency *words, int size);
