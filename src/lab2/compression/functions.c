@@ -11,20 +11,22 @@ void push(Node_word **head, char *buffer) {
     if (tmp == NULL) {
         exit(STACK_OVERFLOW);
     }
+    tmp->word = (char *)calloc(strlen(buffer)+1, 1);
+    strcpy(tmp->word, buffer);
     tmp->next = *head;
-    tmp->word = buffer;
     *head = tmp;
 }
 
 char *pop(Node_word **head) {
     Node_word *out;
-    char *buffer;
     if (*head == NULL) {
         exit(STACK_UNDERFLOW);
     }
     out = *head;
     *head = (*head)->next;
-    buffer = out->word;
+    char *buffer = (char*)calloc(strlen(out->word), 1);
+    strcpy(buffer, out->word);
+    free(out->word);
     free(out);
     return buffer;
 }
@@ -101,7 +103,7 @@ void stack_completion(FILE *f, Node_word **head, int *num1) {
 }
 
 void mas_completion_from_stack(Node_word **head, int *num, Book_frequency **words) {
-    char *buffer = calloc(255, 1);
+    char *buffer;
     while (*head) {
         buffer = pop(&(*head));
         for (int i = 0; i < (*num) + 1; i++) {
@@ -118,7 +120,6 @@ void mas_completion_from_stack(Node_word **head, int *num, Book_frequency **word
             }
         }
     }
-    free(buffer);
 }
 
 void separation(int *num, Book_frequency **words_lit, Book_frequency **words_big, Book_frequency **words) {

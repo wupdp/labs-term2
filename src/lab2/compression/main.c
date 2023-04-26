@@ -36,7 +36,7 @@ int main() {
     printf("Size of file is %lld bite\n", memory1);
     printf("Size of compressed file is %lld bite\n", memory2);
     printf("%f %%\n", percent);
-    //print_vocabulary(words_big);
+    print_vocabulary(words_lit);
     free_words(words, num);
     free(words);
     free(words_lit);
