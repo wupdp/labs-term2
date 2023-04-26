@@ -39,6 +39,8 @@ BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header) {
     for (int i = 0; i < info_header.bi_height; i++) {
         image_pixels[i] = malloc(sizeof(BGR_PIXEL) * info_header.bi_width);
         for (int j = 0; j < info_header.bi_width; j++) {
+            if (feof(f_image_bi))
+                puts("ERROR_F");
             image_pixels[i][j].blue = getc(f_image_bi);
             image_pixels[i][j].green = getc(f_image_bi);
             image_pixels[i][j].red = getc(f_image_bi);

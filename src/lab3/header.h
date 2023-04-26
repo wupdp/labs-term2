@@ -3,6 +3,7 @@
 #include "string.h"
 #include "stdint.h"
 
+#pragma pack(push, 1)
 
 typedef struct {
     uint16_t bf_type;           //тип файла 2byte
@@ -31,6 +32,8 @@ typedef struct {
     uint8_t green;
     uint8_t red;
 } BGR_PIXEL;
+
+#pragma pack(pop)
 
 const char *get_file_name();
 
