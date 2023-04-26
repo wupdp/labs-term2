@@ -4,7 +4,7 @@
 #include "stdint.h"
 
 
-typedef struct{
+typedef struct {
     uint16_t bf_type;           //тип файла 2byte
     uint32_t bf_size;           //размер файла 4byte
     uint16_t bf_reserved1;      //зарезервированные поля 2byte
@@ -12,7 +12,7 @@ typedef struct{
     uint32_t bf_off_bits;       //смещение до битового массива
 } BIT_MAP_FILE_HEADER;          //14byte
 
-typedef struct{
+typedef struct {
     uint32_t bi_size;            // размер структуры
     int32_t bi_width;            // ширина изображения в пикселях
     int32_t bi_height;           // высота изображения в пикселях
@@ -26,11 +26,18 @@ typedef struct{
     uint32_t bi_clr_important;    // количество значимых цветов в палитре
 } BIT_MAP_INFO_HEADER;          //40byte
 
-typedef struct{
+typedef struct {
     uint8_t blue;
     uint8_t green;
     uint8_t red;
 } BGR_PIXEL;
 
 const char *get_file_name();
-FILE* file_open(const char* name);
+
+FILE *file_open(const char *name);
+
+BIT_MAP_FILE_HEADER read_file_header(FILE *f_image_bi);
+
+BIT_MAP_INFO_HEADER read_info_header(FILE *f_image_bi);
+
+BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header);
