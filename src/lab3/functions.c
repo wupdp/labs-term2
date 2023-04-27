@@ -7,7 +7,6 @@
 
 const char *get_file_name() {
     char *name = calloc(1, 1);
-
     printf("Enter image name or address\n");
     gets(name);
     return (const char *) name;
@@ -63,6 +62,20 @@ BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header) {
     return image_pixels_mas;
 }
 
+BGR_PIXEL **pixel_mas_copy(BGR_PIXEL **source, BIT_MAP_INFO_HEADER info_header) {
+    BGR_PIXEL **image_pixels_mas = malloc(sizeof(BGR_PIXEL *) * info_header.bi_height);
+
+    for (int i = 0; i < info_header.bi_height; i++) {
+        image_pixels_mas[i] = malloc(sizeof(BGR_PIXEL) * info_header.bi_width);
+        for (int j = 0; j < info_header.bi_width; j++) {
+            image_pixels_mas[i][j].blue = source[i][j].blue;
+            image_pixels_mas[i][j].green = source[i][j].green;
+            image_pixels_mas[i][j].red = source[i][j].red;
+        }
+    }
+    return image_pixels_mas;
+}
+
 void converting_image_monochrome(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header) {
     uint8_t gray_pixel;
     for (int i = 0; i < info_header.bi_height; i++) {
@@ -105,4 +118,58 @@ void free_mas_pix(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header
     }
     free((*image_pixels_mas));
     (*image_pixels_mas) = NULL;
+}
+
+int brightness_cmp(BGR_PIXEL pix1, BGR_PIXEL pix2) {
+    if (pix1.green + pix1.blue + pix1.red > pix2.green + pix2.blue + pix2.red)
+        return 1;
+    return 0;
+}
+
+void swap(BGR_PIXEL *a, BGR_PIXEL *b) {
+    BGR_PIXEL temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void insertion_sort_pixels(int len, BGR_PIXEL *mas) {
+    for (int i = 1; i < len; i++)
+        for (int j = i; j > 0 && brightness_cmp(mas[j - 1], mas[j]); j--)
+            swap(&(mas[j - 1]), &(mas[j]));
+}
+
+BGR_PIXEL
+get_medial_pixel(BGR_PIXEL **image_pixels_mas, int medial_par, int i, int j, BIT_MAP_INFO_HEADER info_header) {
+    BGR_PIXEL *medial_pixel = (BGR_PIXEL *) calloc(medial_par * medial_par, sizeof(BGR_PIXEL));
+    int k = 0;
+    for (int x = 0; x < medial_par; x++) {
+        for (int y = 0; y < medial_par; y++) {
+            if ((i - medial_par / 2 + x) >= 0 && (j - medial_par / 2 + y) >= 0 &&
+                (i - medial_par / 2 + x) < info_header.bi_height && (j - medial_par / 2 + y) < info_header.bi_width)
+                medial_pixel[k] = image_pixels_mas[i - medial_par / 2 + x][j - medial_par / 2 + y];
+            else {
+                medial_pixel[k].red = 0;
+                medial_pixel[k].green = 0;
+                medial_pixel[k].blue = 0;
+            }
+            k++;
+        }
+    }
+    insertion_sort_pixels(medial_par * medial_par, medial_pixel);
+    return medial_pixel[k / 2 + 1];  //medial_par * medial_par / 2
+}
+
+void
+medial_filtering(BGR_PIXEL ***source, BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header,
+                 int medial_par) {
+    //BGR_PIXEL pixel;
+    for (int i = 0; i < info_header.bi_height; i++) {
+        for (int j = 0; j < info_header.bi_width; j++) {
+           /* pixel = get_medial_pixel(*source, medial_par, i, j, info_header);
+            GREEN = pixel.green;
+            RED = pixel.red;
+            BLUE = pixel.blue;*/
+            (*image_pixels_mas)[i][j] = get_medial_pixel(*source, medial_par, i, j, info_header);
+        }
+    }
 }
