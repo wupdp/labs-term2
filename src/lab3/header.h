@@ -44,3 +44,5 @@ BIT_MAP_FILE_HEADER read_file_header(FILE *f_image_bi);
 BIT_MAP_INFO_HEADER read_info_header(FILE *f_image_bi);
 
 BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header);
+
+void free_mas_pix(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header);

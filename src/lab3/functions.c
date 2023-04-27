@@ -33,19 +33,30 @@ BIT_MAP_INFO_HEADER read_info_header(FILE *f_image_bi) {
 }
 
 BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header) {
-    BGR_PIXEL **image_pixels = malloc(sizeof(BGR_PIXEL *) * info_header.bi_height);
+    BGR_PIXEL **image_pixels_mas = malloc(sizeof(BGR_PIXEL *) * info_header.bi_height);
     int padding = (int) ((4 - (info_header.bi_width * sizeof(BGR_PIXEL)) % 4) % 4);
 
     for (int i = 0; i < info_header.bi_height; i++) {
-        image_pixels[i] = malloc(sizeof(BGR_PIXEL) * info_header.bi_width);
+        image_pixels_mas[i] = malloc(sizeof(BGR_PIXEL) * info_header.bi_width);
         for (int j = 0; j < info_header.bi_width; j++) {
-            if (feof(f_image_bi))
+            if (feof(f_image_bi)) {
                 puts("ERROR_F");
-            image_pixels[i][j].blue = getc(f_image_bi);
-            image_pixels[i][j].green = getc(f_image_bi);
-            image_pixels[i][j].red = getc(f_image_bi);
+                exit(1);
+            }
+            image_pixels_mas[i][j].blue = getc(f_image_bi);
+            image_pixels_mas[i][j].green = getc(f_image_bi);
+            image_pixels_mas[i][j].red = getc(f_image_bi);
             fseek(f_image_bi, padding, SEEK_CUR);
         }
     }
-    return image_pixels;
+    return image_pixels_mas;
+}
+
+void free_mas_pix(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header){
+    for (int i = 0; i < info_header.bi_height; i++) {
+        free((*image_pixels_mas)[i]);
+        (*image_pixels_mas)[i] = NULL;
+    }
+    free((*image_pixels_mas));
+    (*image_pixels_mas) = NULL;
 }
