@@ -4,6 +4,8 @@
 #define GREEN (*image_pixels_mas)[i][j].green
 #define BLUE (*image_pixels_mas)[i][j].blue
 #define RED (*image_pixels_mas)[i][j].red
+#define PIX_MAS_POINTER BGR_PIXEL ***image_pixels_mas
+#define INFO BIT_MAP_INFO_HEADER info_header
 
 const char *get_file_name() {
     char *name = calloc(1, 1);
@@ -42,7 +44,7 @@ BIT_MAP_INFO_HEADER read_info_header(FILE *f_image_bi) {
     return info_header;
 }
 
-BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header) {
+BGR_PIXEL **read_pixels(FILE *f_image_bi, INFO) {
     BGR_PIXEL **image_pixels_mas = malloc(sizeof(BGR_PIXEL *) * info_header.bi_height);
     int padding = (int) ((4 - (info_header.bi_width * sizeof(BGR_PIXEL)) % 4) % 4);
 
@@ -62,7 +64,7 @@ BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header) {
     return image_pixels_mas;
 }
 
-BGR_PIXEL **pixel_mas_copy(BGR_PIXEL **source, BIT_MAP_INFO_HEADER info_header) {
+BGR_PIXEL **pixel_mas_copy(BGR_PIXEL **source, INFO) {
     BGR_PIXEL **image_pixels_mas = malloc(sizeof(BGR_PIXEL *) * info_header.bi_height);
 
     for (int i = 0; i < info_header.bi_height; i++) {
@@ -76,7 +78,7 @@ BGR_PIXEL **pixel_mas_copy(BGR_PIXEL **source, BIT_MAP_INFO_HEADER info_header) 
     return image_pixels_mas;
 }
 
-void converting_image_monochrome(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header) {
+void converting_image_monochrome(PIX_MAS_POINTER, INFO) {
     uint8_t gray_pixel;
     for (int i = 0; i < info_header.bi_height; i++) {
         for (int j = 0; j < info_header.bi_width; j++) {
@@ -88,7 +90,7 @@ void converting_image_monochrome(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEA
     }
 }
 
-void converting_image_negative(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header) {
+void converting_image_negative(PIX_MAS_POINTER, INFO) {
     for (int i = 0; i < info_header.bi_height; i++) {
         for (int j = 0; j < info_header.bi_width; j++) {
             BLUE = 255 - BLUE;
@@ -98,7 +100,7 @@ void converting_image_negative(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADE
     }
 }
 
-void create_image_bmp(BIT_MAP_FILE_HEADER file_header, BIT_MAP_INFO_HEADER info_header, BGR_PIXEL **image_pixels_mas) {
+void create_image_bmp(BIT_MAP_FILE_HEADER file_header, INFO, BGR_PIXEL **image_pixels_mas) {
     FILE *f_image_bmp = fopen("photo_new.bmp", "wb");
     int padding = (int) ((4 - (info_header.bi_width * sizeof(BGR_PIXEL)) % 4) % 4);
     fwrite(&file_header, sizeof(file_header), 1, f_image_bmp);
@@ -111,7 +113,7 @@ void create_image_bmp(BIT_MAP_FILE_HEADER file_header, BIT_MAP_INFO_HEADER info_
     fclose(f_image_bmp);
 }
 
-void free_mas_pix(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header) {
+void free_mas_pix(PIX_MAS_POINTER, INFO) {
     for (int i = 0; i < info_header.bi_height; i++) {
         free((*image_pixels_mas)[i]);
         (*image_pixels_mas)[i] = NULL;
@@ -139,7 +141,7 @@ void insertion_sort_pixels(int len, BGR_PIXEL *mas) {
 }
 
 BGR_PIXEL
-get_medial_pixel(BGR_PIXEL **image_pixels_mas, int medial_par, int i, int j, BIT_MAP_INFO_HEADER info_header) {
+get_medial_pixel(BGR_PIXEL **image_pixels_mas, int medial_par, int i, int j, INFO) {
     BGR_PIXEL *medial_pixel = (BGR_PIXEL *) calloc(medial_par * medial_par, sizeof(BGR_PIXEL));
     int k = 0;
     for (int x = 0; x < medial_par; x++) {
@@ -160,15 +162,9 @@ get_medial_pixel(BGR_PIXEL **image_pixels_mas, int medial_par, int i, int j, BIT
 }
 
 void
-medial_filtering(BGR_PIXEL ***source, BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header,
-                 int medial_par) {
-    //BGR_PIXEL pixel;
+medial_filtering(BGR_PIXEL ***source, PIX_MAS_POINTER, INFO, int medial_par) {
     for (int i = 0; i < info_header.bi_height; i++) {
         for (int j = 0; j < info_header.bi_width; j++) {
-           /* pixel = get_medial_pixel(*source, medial_par, i, j, info_header);
-            GREEN = pixel.green;
-            RED = pixel.red;
-            BLUE = pixel.blue;*/
             (*image_pixels_mas)[i][j] = get_medial_pixel(*source, medial_par, i, j, info_header);
         }
     }
