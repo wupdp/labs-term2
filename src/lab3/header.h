@@ -37,6 +37,8 @@ typedef struct {
 
 const char *get_file_name();
 
+int verify_bmp_file(const char *name_of_file);
+
 FILE *file_open(const char *name);
 
 BIT_MAP_FILE_HEADER read_file_header(FILE *f_image_bi);
@@ -46,3 +48,9 @@ BIT_MAP_INFO_HEADER read_info_header(FILE *f_image_bi);
 BGR_PIXEL **read_pixels(FILE *f_image_bi, BIT_MAP_INFO_HEADER info_header);
 
 void free_mas_pix(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header);
+
+void converting_image_monochrome(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header);
+
+void converting_image_negative(BGR_PIXEL ***image_pixels_mas, BIT_MAP_INFO_HEADER info_header);
+
+void create_image_bmp(BIT_MAP_FILE_HEADER file_header, BIT_MAP_INFO_HEADER info_header, BGR_PIXEL **image_pixels_mas);
