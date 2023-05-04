@@ -19,5 +19,6 @@ int main() {
     mas_from_vocabulary(f_compressed, &vocabulary, &size);
     file_uncompressed_completion(f_compressed, f, vocabulary, size);
     free(vocabulary);
+    puts("Decompression completed");
     return EXIT_SUCCESS;
 }
