@@ -6,7 +6,7 @@ int main () {
     COMPANIES_STRUCT *mas_struct;
     FILE *f;
     int num;
-    int menu_switch = 1;
+    int menu_switch;
     f = fopen("Struct.txt", "r");
     if (f == NULL) {
         perror("ERROR_0");
