@@ -173,11 +173,20 @@ void medial_filtering(BGR_PIXEL ***source, PIX_MAS_POINTER, INFO, int medial_par
     }
 }
 
+void gamma_correction(PIX_MAS_POINTER, INFO, float gamma_par) {
+    for (int i = 0; i < info_header.bi_height; i++) {
+        for (int j = 0; j < info_header.bi_width; j++) {
+            GREEN = (uint8_t)(powf(GREEN / 255.0, gamma_par) * 255.0);
+            BLUE = (uint8_t)(powf(BLUE / 255.0, gamma_par) * 255.0);
+            RED = (uint8_t)(powf(RED / 255.0, gamma_par) * 255.0);
+        }
+    }
+}
+
 int init_x(int min, int max) {
     int x;
     while (scanf_s("%d", &x) != 1 || x < min || x > max ||
-           getchar() != '\n')
-    {
+           getchar() != '\n') {
         printf("Error\n");
         rewind(stdin);
     }
@@ -194,6 +203,7 @@ void menu_filter(BGR_PIXEL ***source, PIX_MAS_POINTER, INFO) {
              "0. Exit\n");
         int choice = init_x(0, 4);
         int medial_par;
+        float gamma_par;
         switch (choice) {
             case 0:
                 return;
@@ -206,10 +216,13 @@ void menu_filter(BGR_PIXEL ***source, PIX_MAS_POINTER, INFO) {
             case 3:
                 puts("Enter medial parameter\n");
                 medial_par = init_x(0, MAX_MEDIAN);
-                *source = pixel_mas_copy( *image_pixels_mas, info_header);
+                *source = pixel_mas_copy(*image_pixels_mas, info_header);
                 medial_filtering(source, image_pixels_mas, info_header, medial_par);
                 break;
             case 4:
+                puts("Enter gamma parameter\n");
+                scanf_s("%fl", &gamma_par);
+                gamma_correction(image_pixels_mas, info_header, gamma_par);
                 break;
             default:
                 puts("Undefined error");

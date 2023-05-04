@@ -2,6 +2,8 @@
 #include "stdio.h"
 #include "string.h"
 #include "stdint.h"
+#include "windows.h"
+#include "math.h"
 
 #pragma pack(push, 1)
 
@@ -17,7 +19,7 @@ typedef struct {
     uint32_t bi_size;            // размер структуры
     int32_t bi_width;            // ширина изображения в пикселях
     int32_t bi_height;           // высота изображения в пикселях
-    uint16_t bi_planes;          // количество цветовых плоскостей  ==1
+    uint16_t bi_planes;          // количество цветовых плоскостей  == 1
     uint16_t bi_bit_count;        // бит на пиксель     24byte
     uint32_t bi_compression;     // тип сжатия
     uint32_t bi_size_image;       // размер массива данных о пикселях

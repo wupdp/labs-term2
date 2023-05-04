@@ -1,7 +1,5 @@
 #include "header.h"
 
-//TODO menu
-//TODO gamma correction
 int main() {
     const char *name_of_file = get_file_name();
     FILE *f_image_bi = file_open(name_of_file);
@@ -18,5 +16,7 @@ int main() {
 
     free_mas_pix(&image_pixels_mas, info_header);
     fclose(f_image_bi);
+
+    system("C:\\c\\src\\lab3\\cmake-build-debug\\photo_new.bmp");
     return 0;
 }
