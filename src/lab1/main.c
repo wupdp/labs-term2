@@ -1,8 +1,5 @@
 #include "header.h"
 
-//CMAKE
-//SONAR
-
 int main () {
     system("chcp 1251");
     setlocale(LC_ALL, "RUS");

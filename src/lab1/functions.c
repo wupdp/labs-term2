@@ -96,8 +96,8 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
         }
     }
     for (int n = 0; n < num; n++) {
-        (*mas_struct)[n].salary = rand() % 100 * 1000;
-        (*mas_struct)[n].sex = rand() % 3;
+        (*mas_struct)[n].salary = n % 325 * 1000;
+        (*mas_struct)[n].sex = n % 3;
     }
 }
 
