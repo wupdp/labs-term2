@@ -95,6 +95,8 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
             perror("ERROR_GETS");
         }
     }
+    free(buffer);
+    free(buffer2);
     for (int n = 0; n < num; n++) {
         (*mas_struct)[n].salary = n % 325 * 1000;
         (*mas_struct)[n].sex = n % 3;
