@@ -111,17 +111,17 @@ void mas_struct_input (COMPANIES_STRUCT **mas_struct, int i) {
         printf("Error");
         rewind(stdin);
     }
-    (*mas_struct)[i].name = (char *) calloc(strlen(buffer), 1);
+    (*mas_struct)[i].name = (char *) calloc(strlen(buffer) + 1, 1);
     strcpy((*mas_struct)[i].name, buffer);
     printf("Введите адрес:\t");
     if (gets(buffer) == NULL)
         printf("Error");
-    (*mas_struct)[i].address = (char *) calloc(strlen(buffer), 1);
+    (*mas_struct)[i].address = (char *) calloc(strlen(buffer)+ 1, 1);
     strcpy((*mas_struct)[i].address, buffer);
     printf("Введите номер телефона:\t");
     if (gets(buffer) == NULL)
         printf("Error");
-    (*mas_struct)[i].number = (char *) calloc(strlen(buffer), 1);
+    (*mas_struct)[i].number = (char *) calloc(strlen(buffer) + 1, 1);
     strcpy((*mas_struct)[i].number, buffer);
     printf("Введите оклад:\t");
     (*mas_struct)[i].salary = init_x(16242, 1000000);
