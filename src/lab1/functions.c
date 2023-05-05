@@ -53,7 +53,6 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
     char *buffer2;
     char *end_str;
     buffer = (char *) calloc(255, 1);
-    buffer2 = (char *) calloc(255, 1);
     while (!feof(f)) {
         if (fgets(buffer, 255, f) != NULL) {
             if (strstr(buffer, "company-info-name-org") != NULL) {
@@ -84,7 +83,7 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
                         break;
                     }
                 }
-                (*mas_struct)[k].number = (char *) calloc(strlen(buffer2), 1);
+                (*mas_struct)[k].number = (char *) calloc(strlen(buffer2) + 1, 1);
                 strcpy((*mas_struct)[k].number, buffer2 + 2);
                 k++;
                 printf("%d struct: Success\n", k);
@@ -96,7 +95,6 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
         }
     }
     free(buffer);
-    free(buffer2);
     for (int n = 0; n < num; n++) {
         (*mas_struct)[n].salary = n % 325 * 1000;
         (*mas_struct)[n].sex = n % 3;
