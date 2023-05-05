@@ -50,9 +50,10 @@ void mas_struct_output (COMPANIES_STRUCT *mas_struct, int num) {
 void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
     int i = 0, j = 0, k = 0;
     char *buffer;
-    char *buffer2 = NULL;
+    char *buffer2;
     char *end_str;
     buffer = (char *) calloc(255, 1);
+    buffer2 = (char *) calloc(50, 1);
     while (!feof(f)) {
         if (fgets(buffer, 255, f) != NULL) {
             if (strstr(buffer, "company-info-name-org") != NULL) {
