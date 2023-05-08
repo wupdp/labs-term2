@@ -53,7 +53,7 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
     char *buffer2;
     char *end_str;
     buffer = (char *) calloc(255, 1);
-    //buffer2 = (char *) calloc(50, 1);
+    buffer2 = (char *) calloc(50, 1);
     while (!feof(f)) {
         if (fgets(buffer, 255, f) != NULL) {
             if (strstr(buffer, "company-info-name-org") != NULL) {
@@ -64,7 +64,7 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
                 strcpy((*mas_struct)[i].name, buffer2);
                 i++;
             }
-            if (strstr(buffer, "address class=") != NULL) {
+            else if (strstr(buffer, "address class=") != NULL) {
                 fgets(buffer2, 255, f);
                 for (unsigned i_len = strlen(buffer2); i_len > 0; i_len--) {
                     if (buffer2[i_len - 1] != ' ' && buffer2[i_len - 1] != '\n' && buffer2[i_len - 1] != '\t') {
@@ -76,7 +76,7 @@ void mas_struct_parsing (COMPANIES_STRUCT **mas_struct, FILE *f, int num) {
                 strcpy((*mas_struct)[j].address, buffer2 + 16);
                 j++;
             }
-            if (strstr(buffer, "company-info-phone-number") != NULL) {
+            else if (strstr(buffer, "company-info-phone-number") != NULL) {
                 fgets(buffer2, 255, f);
                 for (unsigned i_len = strlen(buffer2); i_len > 0; i_len--) {
                     if (buffer2[i_len - 1] != ' ' && buffer2[i_len - 1] != '\n' && buffer2[i_len - 1] != '\t') {
