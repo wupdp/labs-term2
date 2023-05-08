@@ -16,17 +16,35 @@ void give_answer(char *buffer){
     puts("/n");
 }
 
-void add_new_answer(){
+void add_new_question(tree_leaf *past, char* ques, char* answer){
+    tree_leaf *right = (tree_leaf *) malloc(sizeof(tree_leaf));
+    right->left = NULL;
+    right->right = NULL;
+    right->text = answer;
+    tree_leaf *left = (tree_leaf *) malloc(sizeof(tree_leaf));
+    left->left = NULL;
+    left->right = NULL;
+    left->text = past->text;
+    past->text = ques;
+}
 
+void fix_akinator(tree_leaf *past){
+    puts("What did u guessed?\n");
+    char *answer = (char *) calloc(1, 1);
+    char *question = (char *) calloc(1, 1);
+    gets(answer);
+    puts("What is the difference?\n");
+    gets(question);
+    add_new_question(past, question, answer);
 }
 
 void questions(tree_leaf *leaf) {
     if (leaf->right == NULL && leaf->left == NULL){
-        give_answer(leaf->text);
-        if(ask(""))
+        puts(leaf->text);
+        if(ask("\nHave you guessed this person ?\n"))
             puts("It could not be otherwise\n");
         else
-
+            fix_akinator(leaf);
         return;
     }
     if (ask(leaf->text))

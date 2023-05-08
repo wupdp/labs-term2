@@ -8,7 +8,6 @@ typedef struct tree {
     char *text;
     struct tree *left;
     struct tree *right;
-    struct tree *past;
 } tree_leaf;
 
 tree_leaf *get_tree_leaf(char *value, tree_leaf *past);

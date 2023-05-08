@@ -5,6 +5,5 @@ int main() {
     FILE* f_binary_tree = fopen("klen.txt","w");
 
     root = readTreeFromFile(f_binary_tree);
-
     fclose(f_binary_tree);
 }
